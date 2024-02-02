@@ -1,3 +1,4 @@
+
 .data
     array1: .word 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
     array2: .space 80  // 20 * 4 bytes for the second array
@@ -5,9 +6,9 @@
     welcome_msg: .asciz "Welcome! Please enter values for the second array:\n"
 
 .text
-.global _start
+.global main
 
-_start:
+main:
     // Print welcome message
     mov r0, #1   // File descriptor (stdout)
     ldr r1, =welcome_msg
