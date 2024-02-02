@@ -117,7 +117,7 @@ printf:
         bne loop_printf
     bx lr
 
-.data
-    array_format: .asciz "%d "
-    array_format_length: .equ 3
-    welcome_msg_length: .equ 50
+@.data
+@    array_format: .asciz "%d "
+@    array_format_length: .equ 3
+@    welcome_msg_length: .equ 50
