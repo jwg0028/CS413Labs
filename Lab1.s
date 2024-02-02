@@ -93,6 +93,7 @@ calculate_array3:
     bx lr
 
 print_array:
+    push {pc}
     // r0: array address
     // r6: number of elements
     mov r1, #1   // File descriptor (stdout)
