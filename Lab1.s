@@ -12,7 +12,7 @@ main:
     // Print welcome message
     mov r0, #1   // File descriptor (stdout)
     ldr r1, =welcome_msg
-    ldr r2, =welcome_msg_length
+@    ldr r2, =welcome_msg_length
     mov r7, #4   // System call number for write
     swi 0
 
@@ -44,7 +44,7 @@ main:
 
     // Print array3
     ldr r0, =array3
-    bl print_array
+    bl print_arrays
 
     // Exit program
     mov r7, #1   // System call number for exit
