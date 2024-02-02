@@ -44,7 +44,7 @@ main:
 
     // Print array3
     ldr r0, =array3
-    bl print_arrays
+    bl print_array
 
     // Exit program
     mov r7, #1   // System call number for exit
