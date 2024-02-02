@@ -97,8 +97,8 @@ print_array:
     // r6: number of elements
     mov r1, #1   // File descriptor (stdout)
     mov r7, #4   // System call number for write
-    ldr r2, =array_format   // "%d "
-    ldr r3, =array_format_length
+@    ldr r2, =array_format   // "%d "
+@    ldr r3, =array_format_length
     bl printf
 
     bx lr
@@ -117,6 +117,7 @@ printf:
         subs r6, r6, #1
         bne loop_printf
     bx lr
+
 
 @.data
 @    array_format: .asciz "%d "
