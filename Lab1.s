@@ -107,7 +107,6 @@ exit:
     mov r0, #0x00
     svc 0
 
-
 .data
 
 .balign 4
@@ -129,7 +128,7 @@ fmtInt: .asciz "%d"
 inputNum: .word 0
 
 .balign 4
-strPrint: .asciz "Array 1: %d, Array 2: %d, Array 3: %d\n"
+strPrintArray: .asciz "Array 1: %d, Array 2: %d, Array 3: %d\n"
 
 .global printf
 
