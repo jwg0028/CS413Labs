@@ -81,7 +81,7 @@ addingLoop:
 
 printStart:
 	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
-	ldr r4, #0
+	mov r4, #0
 
 	b printingLoop
 
