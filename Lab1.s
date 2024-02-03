@@ -23,23 +23,23 @@ r10: array3
 .global main
 
 main:
-ldr r0, =strHelloMessage
-bl printf
+    @Welcome the user
+    ldr r0, =strHelloMessage
+    bl printf
 
-@array initialization
-ldr r9, =array2
+    @Array 2 is getting the last 10 values set by user
+    ldr r9, =array2
+    bl getInput
 
-bl getInput
+    @All the arrays are being printed
+    ldr r8, =array1
+    ldr r9, =array2
+    ldr r10, =array3
+    bl addingStart
+    bl addingStart
+    bl printStart
 
-ldr r8, =array1
-ldr r9, =array2
-ldr r10, =array3
-
-bl addingStart
-bl addingStart
-bl printStart
-
-b exit
+    b exit
 
 getInput:
     push {r0, r1, r4, r9, lr}
