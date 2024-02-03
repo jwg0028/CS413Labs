@@ -46,7 +46,7 @@ getInput:
     mov r4, #0 @move 0 into r4 for counter
     add r9, #40 @shift 10 over for user input
 
-@b userInputLoop
+	@b userInputLoop
 
 userInputLoop:
 	ldr r0, =fmtInt
@@ -67,7 +67,7 @@ addingStart:
 	push {r0, r1, r2, r4, r8, r9, r10, lr}
 	mov r4, #0
 	
-	b addingLoop
+	@b addingLoop
 
 addingLoop:
 	ldr r1, [r8], #4
@@ -86,7 +86,11 @@ printStart:
 	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
 	mov r4, #0
 
-	b printingLoop
+	ldr r8, =array1
+	ldr r9, =array2
+	ldr r10, =array3
+
+	@b printingLoop
 
 printingLoop:
 	ldr r0, =strPrintArray
