@@ -123,3 +123,8 @@ array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @To be 
 
 .balign 4
 strPrintArray: .asciz "Here are the values of the 3 arrays: \nArray 1: %d \nArray 2: %d \nArray 3: %d\n"
+
+@C functions
+.global printf
+
+.global scanf
