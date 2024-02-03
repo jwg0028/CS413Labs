@@ -116,10 +116,10 @@ array2: .word 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @Last 1
 array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @To be determined at runtime
 
 .balign 4
-=fmtInt: .asciz "%d"
+fmtInt: .asciz "%d"
 
 .balign 4
-=inputNum: .word 0
+inputNum: .word 0
 
 .balign 4
 strPrintArray: .asciz "Here are the values of the 3 arrays: \nArray 1: %d \nArray 2: %d \nArray 3: %d\n"
