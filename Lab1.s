@@ -44,7 +44,7 @@ main:
 getInput:
     push {r0, r1, r4, r9, lr}
     mov r4, #0
-    add r9, #40
+    add r9, #40 @moving 10 words over
 
 	@b userInputLoop
 
@@ -106,6 +106,8 @@ exit:
     mov r7, #0x01
     mov r0, #0x00
     svc 0
+
+.data
 
 .balign 4
 strHelloMessage: .asciz "Welcome to this array program. Enter 10 numbers for an array\n"
