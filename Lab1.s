@@ -3,11 +3,13 @@ File: Lab_1.s
 Author: Jacob Wade Godwin
 
 Run command lines
-1) as -o Lab_1.o Lab_1.s -g gcc -o Lab_1 Lab_1.o -g
-2) ./Lab_1
+1) as -o Lab1.o Lab1.s -g && gcc -o Lab1 Lab1.o -g
+2) ./Lab1
+
+(I tried to name it Lab_1.s but I don't think the raspberry pi likes underscores)
 
 Debug lines
-3) gdb ./Lab_1
+3) gdb ./Lab1
 
 
 Registers used
@@ -122,7 +124,7 @@ exit:
 .data
 
 .balign 4
-strHelloMessage: .asciz "Welcome to this array sum program. All arrays are 20 elements long. \nYou can enter the last 10 numbers for the second array by entering each number and pressing enter:\n"
+strHelloMessage: .asciz "Welcome to this array sum program. \nAll arrays are 20 elements long. \nYou can enter the last 10 numbers for the second array by entering each number and pressing enter:\n"
 
 .balign 4
 array1: .word -10, -9, -8, -7,-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
