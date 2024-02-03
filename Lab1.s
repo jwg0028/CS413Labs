@@ -1,126 +1,130 @@
+/*
+File: Lab_1.s
+Author: Jacob Wade Godwin
 
-.data
-    array1: .word 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-    array2: .space 80  // 20 * 4 bytes for the second array
-    array3: .space 80  // 20 * 4 bytes for the third array
-    welcome_msg: .asciz "Welcome! Please enter values for the second array:\n"
+Run command lines
+1) as -o Lab_1.o Lab_1.s -g gcc -o Lab_1 Lab_1.o -g
+2) ./Lab_1
 
-.text
+Debug lines
+3) gdb ./Lab_1
+
+
+Registers used
+r0: General
+r1: General
+r2: General
+r3: General
+r4: Counter for loops
+r8: array1
+r9: array2
+r10: array3
+*/
 .global main
 
 main:
-    // Print welcome message
-    mov r0, #1   // File descriptor (stdout)
-    ldr r1, =welcome_msg
-@    ldr r2, =welcome_msg_length
-    mov r7, #4   // System call number for write
-    swi 0
+ldr r0, =strHelloMessage
+bl printf
 
-    // Initialize half of array2
-    ldr r4, =array2
-    ldr r5, =array1
-    mov r6, #20
-    bl initialize_array
+@array initialization
+ldr r8, =array1
+ldr r9, =array2
+ldr r10, =array3
+bl getInput
 
-    // Read user input for the other half of array2
-    ldr r0, =array2
-    ldr r1, =20
-    bl read_user_input
+bl addArrays
+bl addArrays
+bl printArrays
 
-    // Calculate array3 = array1 + array2
-    ldr r0, =array1
-    ldr r1, =array2
-    ldr r2, =array3
-    mov r3, #20
-    bl calculate_array3
+b exit
 
-    // Print array1
-    ldr r0, =array1
-    bl print_array
+getInput:
+push {r0, r1, r4, r9, lr}
+mov r4, #0 @move 0 into r4 for counter
+add r9, #40 @shift 10 over for user input
 
-    // Print array2
-    ldr r0, =array2
-    bl print_array
+b userInputLoop
 
-    // Print array3
-    ldr r0, =array3
-    bl print_array
+userInputLoop:
+	ldr r0, =fmtInt
+	ldr r1, =inputNum
+	bl scanf
+	
+	ldr r1, =inputNum
+	ldr r1, [r1]
+	str r1, [r5], #4
 
-    // Exit program
-    mov r7, #1   // System call number for exit
-    mov r0, #0   // Exit code
-    swi 0
+	add r4, #1
+	cmp r4, #10
+	bne userInputLoop
 
-initialize_array:
-    // r0: destination array
-    // r1: source array
-    // r6: number of elements
-    loop_initialize:
-        ldr r2, [r1], #4   // Load value from source array
-        str r2, [r0], #4   // Store value in destination array
-        subs r6, r6, #1
-        bne loop_initialize
-    bx lr
+	pop {r0, r1, r4, r9, pc}
 
-read_user_input:
-    // r0: destination array
-    // r1: number of elements
-    loop_read_input:
-        mov r7, #0   // System call number for read
-        mov r2, r0   // Buffer address
-        mov r3, #4   // Number of bytes to read (integer size)
-        swi 0
+addingStart:
+	push {r0, r1, r2, r4, r8, r9, r10, lr}
+	mov r4, #0
+	
+	b addingLoop
 
-        ldr r2, [r0]   // Convert string to integer
-        str r2, [r0], #4   // Store integer in destination array
+addingLoop:
+	ldr r1, [r8], #4
+	ldr r2, [r9], #4
+	
+	add r3, r1, r2
+	str r3, [r10], #4
+	
+	add r4, #1
+	cmp r4, #20
+	bne addingLoop
 
-        subs r1, r1, #1
-        bne loop_read_input
-    bx lr
+	pop {r0, r1, r2, r4, r8, r9, r10, pc}
 
-calculate_array3:
-    // r0: array1
-    // r1: array2
-    // r2: array3
-    // r3: number of elements
-    loop_calculate:
-        ldr r4, [r0], #4   // Load value from array1
-        ldr r5, [r1], #4   // Load value from array2
-        adds r4, r4, r5    // Calculate sum
-        str r4, [r2], #4   // Store result in array3
-        subs r3, r3, #1
-        bne loop_calculate
-    bx lr
+printStart:
+	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
+	mov r4, #0
 
-print_array:
-    push {pc}
-    // r0: array address
-    // r6: number of elements
-    mov r1, #1   // File descriptor (stdout)
-    mov r7, #4   // System call number for write
-@    ldr r2, =array_format   // "%d "
-@    ldr r3, =array_format_length
-    bl printf
+	b printingLoop
 
-    bx lr
+printingLoop:
+	ldr r0, =strPrintArray
+	ldr r1, [r8], #4
+	ldr r2, [r9], #4
+	ldr r3, [r10], #4
+	bl printf
 
-printf:
-    // r0: array address
-    // r1: file descriptor
-    // r2: format string
-    // r3: format string length
-    // r6: number of elements
-    loop_printf:
-        ldr r4, [r0], #4   // Load value from array
-        mov r5, r4         // Copy value to register for printing
-        mov r4, r1         // Copy file descriptor to register
-        swi 0
-        subs r6, r6, #1
-        bne loop_printf
-    bx lr
+	add r4, #1
+	cmp r4, #20
+	bne printingLoop
 
+	pop {r0, r1, r2, r3, r4, r8, r9, r10, pc}
 
-@.data
-@    array_format: .asciz "%d "
-@    array_format_length: .equ 3
-@    welcome_msg_length: .equ 50
+exit:
+    mov r7, #0x01
+    mov r0, #0x00
+    svc 0
+
+.balign 4
+strHelloMessage: .asciz "Welcome to this array program. Enter 10 numbers for an array\n"
+
+.balign 4
+array1: .word -10, -9, -8, -7,-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+.balign 4
+array2: .word 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @Last 10 to be determined by user
+
+.balign 4
+array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @To be determined at runtime
+
+.balign 4
+fmtInt: .asciz "%d"
+
+.balign 4
+inputNum: .word 0
+
+.balign 4
+strPrintArray: .asciz "Here are the values of the 3 arrays: \nArray 1: %d \nArray 2: %d \nArray 3: %d\n"
+
+@C functions
+.global printf
+
+.global scanf
