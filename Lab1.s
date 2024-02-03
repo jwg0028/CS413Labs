@@ -16,6 +16,7 @@ r1: General
 r2: General
 r3: General
 r4: Counter for loops
+r7: Used in exit function
 r8: array1
 r9: array2
 r10: array3
@@ -23,19 +24,19 @@ r10: array3
 .global main
 
 main:
-    @Welcome the user
+    @Welcomes the user on startup
     ldr r0, =strHelloMessage
     bl printf
 
-    @Array 2 is getting the last 10 values set by user
+    @This is for initializing array2 (it takes user input for the last 10 entries in the array because it's easier)
     ldr r9, =array2
     bl getInput
 
-    @All the arrays are being printed
+    @This is the printing section
     ldr r8, =array1
     ldr r9, =array2
     ldr r10, =array3
-    bl addingStart
+    @bl addingStart
     bl addingStart
     bl printStart
 
