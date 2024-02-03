@@ -133,7 +133,7 @@ inputNum: .word 0
 strFirstRow: .asciz "Array 1 | Array 2 | Array 3\n"
 
 .balign 4
-strPrintArray: .asciz "%d          %d          %d\n"
+strPrintArray: .asciz "%d    +    %d    =    %d\n"
 
 .global printf
 
