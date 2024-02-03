@@ -32,9 +32,9 @@ ldr r9, =array2
 ldr r10, =array3
 bl getInput
 
-bl addArrays
-bl addArrays
-bl printArrays
+bl addingStart
+bl addingStart
+bl printStart
 
 b exit
 
