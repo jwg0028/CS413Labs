@@ -43,8 +43,8 @@ b exit
 
 getInput:
     push {r0, r1, r4, r9, lr}
-    mov r4, #0 @move 0 into r4 for counter
-    add r9, #40 @shift 10 over for user input
+    mov r4, #0
+    add r9, #40
 
 	@b userInputLoop
 
@@ -57,34 +57,11 @@ userInputLoop:
 	ldr r1, [r1]
 	str r1, [r9], #4
 
-	add r4, #1
+	add r4, r4, #1
 	cmp r4, #10
 	bne userInputLoop
 
 	pop {r0, r1, r4, r9, pc}
-
-printStart:
-	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
-	mov r4, #0
-
-	ldr r8, =array1
-	ldr r9, =array2
-	ldr r10, =array3
-
-	@b printingLoop
-
-printingLoop:
-	ldr r0, =strPrintArray
-	ldr r1, [r8], #4
-	ldr r2, [r9], #4
-	ldr r3, [r10], #4
-	bl printf
-
-	add r4, #1
-	cmp r4, #20
-	bne printingLoop
-
-	pop {r0, r1, r2, r3, r4, r8, r9, r10, pc}
 
 addingStart:
 	push {r0, r1, r2, r4, r8, r9, r10, lr}
@@ -105,7 +82,25 @@ addingLoop:
 
 	pop {r0, r1, r2, r4, r8, r9, r10, pc}
 
+printStart:
+	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
+	mov r4, #0
 
+
+	@b printingLoop
+
+printingLoop:
+	ldr r0, =strPrintArray
+	ldr r1, [r8], #4
+	ldr r2, [r9], #4
+	ldr r3, [r10], #4
+	bl printf
+
+	add r4, #1
+	cmp r4, #20
+	bne printingLoop
+
+	pop {r0, r1, r2, r3, r4, r8, r9, r10, pc}
 
 exit:
     mov r7, #0x01
