@@ -27,10 +27,13 @@ ldr r0, =strHelloMessage
 bl printf
 
 @array initialization
+ldr r9, =array2
+
+bl getInput
+
 ldr r8, =array1
 ldr r9, =array2
 ldr r10, =array3
-bl getInput
 
 bl addingStart
 bl addingStart
