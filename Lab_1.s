@@ -1,110 +1,117 @@
 /*
-File: Lab_1.s
-Author: Jacob Wade Godwin
+File: Lab1.s
+Author: Lane Wright
 
-Run command lines
-1) as -o Lab_1.o Lab_1.s -g gcc -o Lab_1 Lab_1.o -g
-2) ./Lab_1
+To Run:
+as -o Lab1.o Lab1.s -g
+gcc -o Lab1 Lab1.o -g
+./Lab1
 
-Debug lines
-3) gdb ./Lab_1
-
-
-Registers used
-r0: General
-r1: General
-r2: General
-r3: General
-r4: Counter for loops
-r8: array1
-r9: array2
-r10: array3
-*/
+To Dubug after compiled:
+gdb ./Lab1
+ */
 .global main
 
 main:
-ldr r0, =strHelloMessage
-bl printf
+    @Welcome the user
+    ldr r0, =strWelcomeMessage
+    bl printf
 
-@array initialization
-ldr r8, =array1
-ldr r9, =array2
-ldr r10, =array3
-bl getInput
+    @Array 2 is getting the last 10 values set by user
+    ldr r5, =array2
+    bl getInput
 
-bl addArrays
-bl addArrays
-bl printArrays
+    @All the arrays are being printed
+    ldr r4, =array1
+    ldr r5, =array2
+    ldr r6, =array3
+    bl addArrays
+    bl addArrays
+    bl printArrays
 
-b exit
+    b exit
 
+/*
+r5: The array to put the values into
+ */
 getInput:
-push {r0, r1, r4, r9, lr}
-mov r4, #0 @move 0 into r4 for counter
-add r9, #40 @shift 10 over for user input
+    push {r0, r1, r5, r10, lr} @Save the values the regs had
+    mov r10, #0 @counter
+    add r5, #40 @Offset for there already being 10 elements in the array
+inputLoop:
+    ldr r0, =intInputMode @Inputing an integer
+    ldr r1, =intInput @Address to store the input
+    bl scanf
+    ldr r1, =intInput
+    ldr r1, [r1]
+    str r1, [r5], #4 @Place the value into the array
 
-b userInputLoop
+    add r10, #1 @Add 1 to counter
+    cmp r10, #10 @End condition
+    bne inputLoop @Enter the 
+    pop {r0, r1, r5, r10, pc} @Return the values back to the regs
 
-userInputLoop:
-	ldr r0, =fmtInt
-	ldr r1, =inputNum
-	bl scanf
-	
-	ldr r1, =inputNum
-	ldr r1, [r1]
-	str r1, [r5], #4
+/*
+r4: Array 1
+r5: Array 2
+r6: Array 3
+ */
+printArrays:
+    push {r0, r1, r2, r3, r4, r5, r6, r10, lr} @Save the values the regs had
+    mov r10, #0 @counter
 
-	add r4, #1
-	cmp r4, #10
-	bne userInputLoop
+printLoop:
+    ldr r0, =strPrint
+    ldr r1, [r4], #4 @Next index in array1
+    ldr r2, [r5], #4 @Next index in array2
+    ldr r3, [r6], #4 @Next index in array3
+    bl printf
+    
+    add r10, #1 @Add 1 to counter
+    cmp r10, #20 @End condition
+    bne printLoop
+    pop {r0, r1, r2, r3, r4, r5, r6, r10, pc} @Return the values back to the regs
 
-	pop {r0, r1, r4, r9, pc}
+/*
+r4: Array 1
+r5: Array 2
+r6: Array 3
+ */
+addArrays:
+    push {r1, r2, r3, r4, r5, r6, r10, lr} @Save the values the regs had
+    mov r10, #0 @counter
 
-addingStart:
-	push {r0, r1, r2, r4, r8, r9, r10, lr}
-	mov r4, #0
-	
-	b addingLoop
+addLoop:
+    ldr r1, [r4], #4 @Next index in array1
+    ldr r2, [r5], #4 @Next index in array2
 
-addingLoop:
-	ldr r1, [r8], #4
-	ldr r2, [r9], #4
-	
-	add r3, r1, r2
-	str r3, [r10], #4
-	
-	add r4, #1
-	cmp r4, #20
-	bne addingLoop
+    @array3[i] = array1[i] + array2[i]
+    add r3, r1, r2 
+    str r3, [r6], #4
 
-	pop {r0, r1, r2, r4, r8, r9, r10, pc}
+    add r10, #1 @Add 1 to counter
+    cmp r10, #20 @End condition
+    bne addLoop
+    pop {r1, r2, r3, r4, r5, r6, r10, pc} @Return the values back to the regs
 
-printStart:
-	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
-	mov r4, #0
-
-	b printingLoop
-
-printingLoop:
-	ldr r0, =strPrintArray
-	ldr r1, [r8], #4
-	ldr r2, [r9], #4
-	ldr r3, [r10], #4
-	bl printf
-
-	add r4, #1
-	cmp r4, #20
-	bne printingLoop
-
-	pop {r0, r1, r2, r3, r4, r8, r9, r10, pc}
-
+/*
+Exit with code 0 (success)
+ */
 exit:
     mov r7, #0x01
     mov r0, #0x00
     svc 0
 
+.data
+
 .balign 4
-strHelloMessage: .asciz "Welcome to this array program. Enter 10 numbers for an array\n"
+strWelcomeMessage: .asciz "Please input 10 numbers (enter a number then hit enter)\n"
+
+.balign 4
+intInputMode: .asciz "%d"
+
+.balign 4
+strPrint: .asciz "Array 1: %d, Array 2: %d, Array 3: %d\n"
 
 .balign 4
 array1: .word -10, -9, -8, -7,-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
@@ -116,13 +123,8 @@ array2: .word 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @Last 1
 array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @To be determined at runtime
 
 .balign 4
-fmtInt: .asciz "%d"
+intInput: .word 0
 
-.balign 4
-inputNum: .word 0
-
-.balign 4
-strPrintArray: .asciz "Here are the values of the 3 arrays: \nArray 1: %d \nArray 2: %d \nArray 3: %d\n"
 
 @C functions
 .global printf
