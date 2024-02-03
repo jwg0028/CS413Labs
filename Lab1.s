@@ -86,6 +86,8 @@ printStart:
 	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
 	mov r4, #0
 
+    ldr r0, =strFirstRow
+    bl printf
 
 	@b printingLoop
 
@@ -128,7 +130,10 @@ fmtInt: .asciz "%d"
 inputNum: .word 0
 
 .balign 4
-strPrintArray: .asciz "Array 1 | Array 2 | Array 3\n  %d    %d    %d\n"
+strFirstRow: .asciz "Array 1 | Array 2 | Array 3\n"
+
+.balign 4
+strPrintArray: .asciz "%d      %d      %d\n"
 
 .global printf
 
