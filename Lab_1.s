@@ -63,25 +63,6 @@ userInputLoop:
 
 	pop {r0, r1, r4, r9, pc}
 
-addingStart:
-	push {r0, r1, r2, r4, r8, r9, r10, lr}
-	mov r4, #0
-	
-	@b addingLoop
-
-addingLoop:
-	ldr r1, [r8], #4
-	ldr r2, [r9], #4
-	
-	add r3, r1, r2
-	str r3, [r10], #4
-	
-	add r4, #1
-	cmp r4, #20
-	bne addingLoop
-
-	pop {r0, r1, r2, r4, r8, r9, r10, pc}
-
 printStart:
 	push {r0, r1, r2, r3, r4, r8, r9, r10, lr}
 	mov r4, #0
@@ -105,6 +86,27 @@ printingLoop:
 
 	pop {r0, r1, r2, r3, r4, r8, r9, r10, pc}
 
+addingStart:
+	push {r0, r1, r2, r4, r8, r9, r10, lr}
+	mov r4, #0
+	
+	@b addingLoop
+
+addingLoop:
+	ldr r1, [r8], #4
+	ldr r2, [r9], #4
+	
+	add r3, r1, r2
+	str r3, [r10], #4
+	
+	add r4, #1
+	cmp r4, #20
+	bne addingLoop
+
+	pop {r0, r1, r2, r4, r8, r9, r10, pc}
+
+
+
 exit:
     mov r7, #0x01
     mov r0, #0x00
@@ -117,10 +119,10 @@ strHelloMessage: .asciz "Welcome to this array program. Enter 10 numbers for an 
 array1: .word -10, -9, -8, -7,-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 
 .balign 4
-array2: .word 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @Last 10 to be determined by user
+array2: .word 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .balign 4
-array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 @To be determined at runtime
+array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .balign 4
 fmtInt: .asciz "%d"
@@ -131,7 +133,6 @@ inputNum: .word 0
 .balign 4
 strPrintArray: .asciz "Here are the values of the 3 arrays: \nArray 1: %d \nArray 2: %d \nArray 3: %d\n"
 
-@C functions
 .global printf
 
 .global scanf
