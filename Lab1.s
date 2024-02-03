@@ -42,11 +42,11 @@ bl printStart
 b exit
 
 getInput:
-push {r0, r1, r4, r9, lr}
-mov r4, #0 @move 0 into r4 for counter
-add r9, #40 @shift 10 over for user input
+    push {r0, r1, r4, r9, lr}
+    mov r4, #0 @move 0 into r4 for counter
+    add r9, #40 @shift 10 over for user input
 
-b userInputLoop
+@b userInputLoop
 
 userInputLoop:
 	ldr r0, =fmtInt
@@ -55,7 +55,7 @@ userInputLoop:
 	
 	ldr r1, =inputNum
 	ldr r1, [r1]
-	str r1, [r5], #4
+	str r1, [r9], #4
 
 	add r4, #1
 	cmp r4, #10
