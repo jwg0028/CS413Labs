@@ -114,7 +114,7 @@ strHelloMessage: .asciz "Welcome to this array program. Enter 10 numbers for an 
 array1: .word -10, -9, -8, -7,-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 
 .balign 4
-array2: .word 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+array2: .word 0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .balign 4
 array3: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
