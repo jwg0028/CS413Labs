@@ -128,7 +128,7 @@ fmtInt: .asciz "%d"
 inputNum: .word 0
 
 .balign 4
-strPrintArray: .asciz "Array 1: %d, Array 2: %d, Array 3: %d\n"
+strPrintArray: .asciz "Array 1 | Array 2 | Array 3\n  %d    %d    %d\n"
 
 .global printf
 
