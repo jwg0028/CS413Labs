@@ -74,18 +74,38 @@ operationInputCheck:
     pop {r0, r1, pc}
 
 andOperation:
-    push {r8}
-    pop {r4}
+    push {r0, r1, r8, r9, lr}
 
     ldr r9, =hexNum2
 
-    and r4, r9
+    and r8, r9
 
-    pop {r0, r1, r4, r8, r9, pc}
+    pop {r0, r1, r8, r9, pc}
 
 orrOperation:
+    push {r0, r1, r8, r9, lr}
+
+    ldr r9, =hexNum2
+
+    orr r8, r9
+
+    pop {r0, r1, r8, r9, pc}
 eorOperation:
+    push {r0, r1, r8, r9, lr}
+
+    ldr r9, =hexNum2
+
+    eor r8, r9
+
+    pop {r0, r1, r8, r9, pc}
 bicOperation:
+    push {r0, r1, r8, r9, lr}
+
+    ldr r9, =hexNum2
+
+    bic r8, r9
+
+    pop {r0, r1, r8, r9, pc}
 
 print:
     @print the output
