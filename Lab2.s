@@ -83,6 +83,8 @@ bicOperation:
 
 print:
     @print the output
+    ldr r0, =strPrint
+    ldr r4, =hexNum1
 
 exit:
     mov r7, #0x01
@@ -99,6 +101,9 @@ strHexPrompt: .asciz "Enter Hex\n"
 
 .balign 4
 strOperationPrompt: .asciz "Enter operation\n"
+
+.balign 4
+strPrint: .asciz "Output %x\n"
 
 .balign 4
 hexRead: .asciz "%x"
