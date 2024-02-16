@@ -31,7 +31,7 @@ main:
 hexInput:
     push {r0, r1, lr}
     @Take user input
-    ldr r0, =hexInput
+    ldr r0, =hexRead
     ldr r1, =hexNum1
     bl scanf
 
@@ -92,7 +92,7 @@ exit:
 .data
 
 .balign 4
-strWelcome.asciz "Welcome\n"
+strWelcome: .asciz "Welcome\n"
 
 .balign 4
 strHexPrompt: .asciz "Enter Hex\n"
@@ -101,7 +101,7 @@ strHexPrompt: .asciz "Enter Hex\n"
 strOperationPrompt: .asciz "Enter operation\n"
 
 .balign 4
-hexInput: .asciz "%x"
+hexRead: .asciz "%x"
 
 .balign 4
 hexNum1: .word 0x0
@@ -109,8 +109,8 @@ hexNum1: .word 0x0
 .balign 4
 hexNum2: .word 0xF0F0F0F0
 
-.balign 4
-operationInput: .word 0
+@.balign 4
+@operationRead: .word 0
 
 .balign 4
 fmtInt: .asciz "%d"
