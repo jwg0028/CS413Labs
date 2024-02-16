@@ -69,8 +69,15 @@ operationInputCheck:
     pop {r0, r1, pc}
 
 andOperation:
+    ldr r0, =strWelcome
+    bl printf
+
     push {r8}
     pop {r4}
+
+    ldr r0, =strWelcome
+    bl printf
+
     ldr r9, =hexNum2
 
     and r4, r9
