@@ -1,12 +1,23 @@
 /*
-r0- general use
-r1- hex 1 input
-r2- hex 2 input
-r3- operation input
-r4
-r5
-r6
-r7
+File: Lab_1.s
+Author: Jacob Wade Godwin
+
+Run command lines
+1) as -o Lab2.o Lab2.s -g && gcc -o Lab2 Lab2.o -g
+2) ./Lab1
+
+Debug lines
+3) gdb ./Lab1
+
+Important comment:
+I can't get it to work. I think it has an okay foundation, but there are just some things I don't quite understand in practice that are holding me back.
+
+Registers used:
+r0: General
+r1: General
+r7: Used in exit function
+r8: Hex from user input
+r9: stored hex
 */
 
 .global main
@@ -110,7 +121,7 @@ bicOperation:
 print:
     @print the output
     ldr r0, =strPrint
-    ldr r4, =hexNum1
+    ldr r8, =hexNum1
 
 exit:
     mov r7, #0x01
