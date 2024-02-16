@@ -51,7 +51,7 @@ operationInput:
 	ldr r1, =intInput
 	bl scanf
 
-    ldr r1, intInput
+    ldr r1, =intInput
 
 
 
