@@ -37,14 +37,19 @@ hexInput:
 
     ldr r8, [r1]
     
+    ldr r0, =strWelcome
+    bl printf
+
     push {r8}
     
 
 hexInputCheck:
     @Check if input is valid
+    ldr r0, =strWelcome
+    bl printf
+
     pop {r0, r1, pc}
 operationInput:
-
     push {r0, r1, lr}
     @Take user input
     ldr r0, =fmtInt
@@ -69,14 +74,8 @@ operationInputCheck:
     pop {r0, r1, pc}
 
 andOperation:
-    ldr r0, =strWelcome
-    bl printf
-
     push {r8}
     pop {r4}
-
-    ldr r0, =strWelcome
-    bl printf
 
     ldr r9, =hexNum2
 
