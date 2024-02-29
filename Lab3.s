@@ -36,7 +36,8 @@ main:
 	
 	ldr r1, =inputNum
 
-    ldr r0, =inputNum
+    ldr r0, =fmtInt
+    ldr r1
     bl printf
 
 exit:
