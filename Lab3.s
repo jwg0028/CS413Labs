@@ -30,6 +30,12 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
+    ldr r0, =fmtInt
+	ldr r1, =inputNum
+	bl scanf
+	
+	ldr r1, =inputNum
+
 exit:
     mov r7, #0x01
     mov r0, #0x00
@@ -41,6 +47,12 @@ exit:
 
 .balign 4
 strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCost of Coke, Sprite, Dr. Pepper, and Coke Zero is 55 cents.\n\nEnter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
+
+.balign 4
+fmtInt: .asciz "%d"
+
+.balign 4
+inputNum: .word 0
 
 @C library
 .global printf
