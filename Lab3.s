@@ -30,15 +30,21 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
+    bl takeInput
+
+    ldr r0, =testMessage
+    bl printf
+
+takeInput:
+    push {r0, lr}
+
     ldr r0, =fmtInt
 	ldr r1, =inputNum
 	bl scanf
 	
 	ldr r1, =inputNum
 
-    ldr r0, =fmtInt
-    ldr r1, #1
-    bl printf
+    pop {r0, pc}
 
 exit:
     mov r7, #0x01
@@ -51,6 +57,9 @@ exit:
 
 .balign 4
 strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCost of Coke, Sprite, Dr. Pepper, and Coke Zero is 55 cents.\n\nEnter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
+
+.balign 4
+testMessage: .asciz "test\n"
 
 .balign 4
 fmtInt: .asciz "%d"
