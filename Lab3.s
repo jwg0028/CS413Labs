@@ -36,6 +36,9 @@ main:
 	
 	ldr r1, =inputNum
 
+    ldr r0, =inputNum
+    bl printf
+
 exit:
     mov r7, #0x01
     mov r0, #0x00
