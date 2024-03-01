@@ -45,9 +45,9 @@ takeInput:
 
 inputLoop:
 
-    @ldr r0, =strYourTotal
-    @ldr r1, [r5]  @ Load the value of total
-    @bl printf
+    ldr r0, =strYourTotal
+    mov r1, r5  @ Load the value of total
+    bl printf
 
 
     ldr r0, =fmtChar
