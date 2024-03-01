@@ -42,6 +42,7 @@ main:
 
     bl takeInput
 
+    push{lr}
     bl choice
 
     b exit
@@ -116,7 +117,7 @@ breakLoop:
 
 
 choice:
-    push{lr}
+
 
 choiceLoop:
     ldr r0, =strChoiceQuery
