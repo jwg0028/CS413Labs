@@ -38,7 +38,10 @@ main:
     b exit
 
 takeInput:
-    push {r0, r1, r4, r5, r8, lr}
+    push {r0, r1, r3, r4, r5, r8, lr}
+
+    ldr r3, =total
+    ldr r5, =target
 
 inputLoop:
 
@@ -53,9 +56,47 @@ inputLoop:
 
     @section for branching based on coin inputted
 
+    cmp r1, #'n'
+    beq nickelCase
+
+    cmp r1, #'d'
+    beq dimeCase
+
+    cmp r1, #'q'
+    beq quarterCase
+
+    cmp r1, #'b'
+    beq billCase
+    
+breakLoop:
+    pop {r0, r1, r4, r5, r8, pc}
+
+
+@section for breaking off and adding
+nickelCase:
+    ldr r3, =nickelValue
+    add r3, r5
+    pop {r3}
     b inputLoop
 
-    pop {r0, r1, r4, r5, r8, pc}
+dimeCase:  
+    ldr r3, =dimeValue
+    add r3, r5
+    pop {r3}
+    b inputLoop
+
+quarterCase:
+    ldr r3, =quarterValue
+    add r3, r5
+    pop {r3}
+    b inputLoop
+
+billCase:
+    ldr r3, =billValuealue
+    add r3, r5
+    pop {r3}
+    b inputLoop
+
 
 exit:
     mov r7, #0x01
@@ -77,6 +118,24 @@ fmtChar: .asciz "%c"
 
 .balign 4
 inputChar: .ascii ""
+
+.balign 4
+nickelValue: .double 0.05
+
+.balign 4
+dimeValue: .double 0.10
+
+.balign 4
+quarterValue: .double 0.25
+
+.balign 4
+billValue: .double 1
+
+.balign 4
+target: .double 0.55
+
+.balign 4
+total: .double 0
 
 @C library
 .global printf
