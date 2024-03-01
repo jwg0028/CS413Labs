@@ -27,7 +27,6 @@ r9: number of coke zero
 .global main
 
 main:
-    mov r5, #0
     mov r6, #1
     mov r7, #2
     mov r8, #2
@@ -42,6 +41,7 @@ main:
 
 masterLoop:
 
+    mov r5, #0
 
     bl inputLoop
 
