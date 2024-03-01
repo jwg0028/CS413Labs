@@ -78,6 +78,10 @@ breakLoop:
     pop {r0, r1, r4, r8, pc}
 
 nickel:
+
+ldr r0, =testMessage
+bl printf
+
 ldr r4, =nickelValue
 add r3, r4
 b inputLoop
