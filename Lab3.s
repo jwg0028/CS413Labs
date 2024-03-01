@@ -45,9 +45,9 @@ takeInput:
 
 inputLoop:
 
-    ldr r0, =strYourTotal
-    ldr r1, [r5]  @ Load the value of total
-    bl printf
+    @ldr r0, =strYourTotal
+    @ldr r1, [r5]  @ Load the value of total
+    @bl printf
 
 
     ldr r0, =fmtChar
@@ -61,7 +61,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     cmp r5, #55
-    bge breakLoop
+    beq breakLoop
 
     cmp r1, #'N'
     beq nickelCase
