@@ -30,6 +30,10 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
+    ldr r0, =fmtInt
+    mov r6, #14
+    bl printf
+
     bl takeInput
 
     ldr r1, =inputChar
@@ -58,9 +62,7 @@ inputLoop:
 
     @section for branching based on coin inputted
 
-    ldr r0, =fmtInt
-    mov r6, #14
-    bl printf
+
 
     cmp r1, #1
     beq nickel
