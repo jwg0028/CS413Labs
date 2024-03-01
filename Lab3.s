@@ -37,64 +37,53 @@ main:
 
     b exit
 
-takeInput:
-    push {r0, r1, r3, r4, lr}
-
-    ldr r5, =total
-
-
 inputLoop:
-
     ldr r0, =strYourTotal
     ldr r1, [r5]  @ Load the value of total
     bl printf
 
-
     ldr r0, =fmtChar
-	ldr r1, =inputChar
-	bl scanf
-
     ldr r1, =inputChar
+    bl scanf
 
-
+    ldr r3, =inputChar
 
     @section for branching based on coin inputted
+    ldrb r4, [r3]  @ Load the character entered into r4 for comparison
 
-    cmp r5, #55
-    bge breakLoop
-
-    cmp r1, #'n'
+    cmp r4, #'n'
     beq nickelCase
 
-    cmp r1, #'d'
+    cmp r4, #'d'
     beq dimeCase
 
-    cmp r1, #'q'
+    cmp r4, #'q'
     beq quarterCase
 
-    cmp r1, #'b'
+    cmp r4, #'b'
     beq billCase
-    
-    b inputLoop
+
 
 
 @section for breaking off and adding
 nickelCase:
-    add r5, r5, #5  @ Add nickel value to total
+    add r1, r1, #5  @ Add nickel value to total
+    str r1, [r5]  @ Store the updated total
     b inputLoop  @ Continue input loop
 
-
-dimeCase:  
-    add r5, r5, #10  @ Add dime value to total
+dimeCase:
+    add r1, r1, #10  @ Add dime value to total
+    str r1, [r5]  @ Store the updated total
     b inputLoop  @ Continue input loop
 
 quarterCase:
-    add r5, r5, #25  @ Add quarter value to total
+    add r1, r1, #25  @ Add quarter value to total
+    str r1, [r5]  @ Store the updated total
     b inputLoop  @ Continue input loop
 
-
 billCase:
-    add r5, r5, #100  @ Add bill value to total
+    add r1, r1, #100  @ Add bill value to total
+    str r1, [r5]  @ Store the updated total
     b inputLoop  @ Continue input loop
 
 
