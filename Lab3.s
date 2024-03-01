@@ -57,6 +57,9 @@ inputLoop:
 
     ldr r1, =inputChar
 
+    ldr r0, =strTest
+    bl printf
+
     @section for branching based on coin inputted
 
     cmp r5, #55
@@ -113,7 +116,10 @@ strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCos
 strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
 
 .balign 4
-strYourTotal: .asciz "Your total is: %d"
+strYourTotal: .asciz "Your total is: %d\n"
+
+.balign 4
+strTest: .asciz "Test"
 
 .balign 4
 fmtChar: .asciz "%c"
