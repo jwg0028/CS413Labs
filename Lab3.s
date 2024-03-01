@@ -40,7 +40,7 @@ main:
     b exit
 
 takeInput:
-    push {r0, r1, r8, lr}
+    push {r0, r1, r4, r8, lr}
 
     ldr r3, =total
 
@@ -75,22 +75,26 @@ inputLoop:
     cmp r3, #0.55
     blt inputLoop
 
-    pop {r0, r1, r8, pc}
+    pop {r0, r1, r4, r8, pc}
 
 nickel:
-add r3, #0.05
+ldr r4, =nickelValue
+add r3, r4
 b inputLoop
 
 dime:
-add r3, #0.10
+ldr r4, =dimeValue
+add r3, r4
 b inputLoop
 
 quarter:
-add r3, #0.25
+ldr r4, =quarterValue
+add r3, r4
 b inputLoop
 
 bill:
-add r3, #1
+ldr r4, =billValue
+add r3, r4
 b inputLoop
 
 exit:
@@ -116,6 +120,18 @@ fmtInt: .asciz "%d"
 
 .balign 4
 inputChar: .word 0
+
+.balign 4
+nickelValue: .double 0.05
+
+.balign 4
+dimeValue: .double 0.10
+
+.balign 4
+quarterValue: .double 0.25
+
+.balign 4
+billValue: .double 1
 
 .balign 4
 total: .double 0
