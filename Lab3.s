@@ -151,6 +151,9 @@ choiceLoop:
     cmp r1, #'Z'
     beq zeroCase
 
+    cmp r1, #'X'
+    beq leaveCase
+
     cmp r1, #'I'
     beq inventoryCheck
 
@@ -207,6 +210,13 @@ zeroCase:
     bl printf
 
     b masterLoop
+leaveCase:
+    ldr r0, =strLeave
+    mov r1, r5
+    bl printf
+
+    b masterLoop
+
 emptyCase:
     ldr r0, =strEmpty
     bl printf
@@ -250,7 +260,7 @@ strInvalid: .asciz "This is an invalid input, try again\n"
 strYourTotal: .asciz "Your total is: %d cents\n"
 
 .balign 4
-strChoiceQuery: .asciz "What would you like to get\nTotal Money: %d cents\n"
+strChoiceQuery: .asciz "Make selection:\n(C) Coke, (S) Sprite, (P) Dr. Pepper, or (Z) Coke Zero (X) to cancel and return all money.\nAvailable Money: %d\n"
 
 .balign 4
 strCoke: .asciz "Coke Dispensed\nReturned %d cents\n"
@@ -263,6 +273,9 @@ strPepper: .asciz "Dr. Pepper Dispensed\nReturned %d cents\n"
 
 .balign 4
 strZero: .asciz "Coke Zero Dispensed\nReturned %d cents\n"
+
+.balign 4
+strLeave: .asciz "Nothing was chosen\nReturned %d cents\n"
 
 .balign 4
 strInventory: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
