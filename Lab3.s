@@ -43,6 +43,7 @@ takeInput:
     push {r0, r1, r4, r8, lr}
 
     ldr r3, =total
+    ldr r5, =target
 
 inputLoop:
 
@@ -72,7 +73,7 @@ inputLoop:
 	
 
 
-    cmp r3, #0.55
+    cmp r3, r5
     blt inputLoop
 
     pop {r0, r1, r4, r8, pc}
@@ -132,6 +133,9 @@ quarterValue: .double 0.25
 
 .balign 4
 billValue: .double 1
+
+.balign 4
+target: .double 0.55
 
 .balign 4
 total: .double 0
