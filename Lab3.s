@@ -235,7 +235,9 @@ inventoryCheck:
     bl printf
     pop {r9}
 
-    b choiceLoop
+    cmp r5, #55
+    bge choiceLoop
+    blt inputLoop
 
 
 exit:
