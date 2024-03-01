@@ -58,22 +58,22 @@ inputLoop:
 
     @section for branching based on coin inputted
 
+    b inputLoop
 
+    @cmp r1, #'n'
+    @beq nickel
 
-    cmp r1, #'n'
-    beq nickel
+    @cmp r1, #'d'
+    @beq dime
 
-    cmp r1, #'d'
-    beq dime
+    @cmp r1, #'q'
+    @beq quarter
 
-    cmp r1, #'q'
-    beq quarter
+    @cmp r1, #'b'
+    @beq bill
 
-    cmp r1, #'b'
-    beq bill
-
-    cmp r3, r5
-    beq breakLoop
+    @cmp r3, r5
+    @beq breakLoop
 	
 
 breakLoop:
