@@ -72,22 +72,26 @@ inputLoop:
 	
 
 
-    cmp r3, 0.55
+    cmp r3, #0.55
     blt inputLoop
 
     pop {r0, r1, r8, pc}
 
 nickel:
 add r3, #0.05
+b inputLoop
 
 dime:
 add r3, #0.10
+b inputLoop
 
 quarter:
 add r3, #0.25
+b inputLoop
 
 bill:
 add r3, #1
+b inputLoop
 
 exit:
     mov r7, #0x01
