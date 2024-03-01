@@ -30,10 +30,6 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
-    ldr r0, =fmtInt
-    mov r6, #14
-    bl printf
-
     bl takeInput
 
     ldr r1, =inputChar
@@ -54,7 +50,7 @@ inputLoop:
     ldr r0, =strInputLoop
     bl printf
 
-    ldr r0, =fmtInt
+    ldr r0, =fmtChar
 	ldr r1, =inputChar
 	bl scanf
 
@@ -64,16 +60,16 @@ inputLoop:
 
 
 
-    cmp r1, #1
+    cmp r1, #'n'
     beq nickel
 
-    cmp r1, #2
+    cmp r1, #'d'
     beq dime
 
-    cmp r1, #3
+    cmp r1, #'q'
     beq quarter
 
-    cmp r1, #4
+    cmp r1, #'b'
     beq bill
 
     cmp r3, r5
@@ -122,10 +118,10 @@ strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dol
 testMessage: .asciz "test\n"
 
 .balign 4
-fmtInt: .asciz "%d"
+fmtChar: .asciz "%c"
 
 .balign 4
-inputChar: .word 0
+inputChar: .ascii 'a'
 
 .balign 4
 nickelValue: .double 0.05
