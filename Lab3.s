@@ -38,12 +38,11 @@ main:
     b exit
 
 takeInput:
-    push {r0, r1, r3, r4, r5, r6, r8, r9, lr}
+    push {r0, r1, r3, r4, lr}
 
-    ldr r8, =total
-    ldr r5, [r8]
-    ldr r9, =target
-    ldr r6, [r9]
+    ldr r6, =total
+    ldr r5, [r6]
+
 
 inputLoop:
 
@@ -58,7 +57,7 @@ inputLoop:
 
     @section for branching based on coin inputted
 
-    cmp r5, r6
+    cmp r5, #55
     beq breakLoop
 
     cmp r1, #'n'
@@ -78,27 +77,19 @@ inputLoop:
 
 @section for breaking off and adding
 nickelCase:
-    ldr r3, =nickelValue
-    ldr r4, [r3]  @ Load value of nickel
-    add r5, r5, r4  @ Add nickel value to total
+    add r5, r5, #5  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
 dimeCase:  
-    ldr r3, =dimeValue
-    ldr r4, [r3]  @ Load value of dime
-    add r5, r5, r4  @ Add dime value to total
+    add r5, r5, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
 quarterCase:
-    ldr r3, =quarterValue
-    ldr r4, [r3]  @ Load value of quarter
-    add r5, r5, r4  @ Add quarter value to total
+    add r5, r5, #25  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
 billCase:
-    ldr r3, =billValue
-    ldr r4, [r3]  @ Load value of bill
-    add r5, r5, r4  @ Add bill value to total
+    add r5, r5, #100  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
 breakLoop:
@@ -120,28 +111,16 @@ strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCos
 strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
 
 .balign 4
+strYourTotal: .asciz ""
+
+.balign 4
 fmtChar: .asciz "%c"
 
 .balign 4
 inputChar: .ascii ""
 
 .balign 4
-nickelValue: .double 0.05
-
-.balign 4
-dimeValue: .double 0.10
-
-.balign 4
-quarterValue: .double 0.25
-
-.balign 4
-billValue: .double 1
-
-.balign 4
-target: .double 0.55
-
-.balign 4
-total: .double 0
+total: .word 0
 
 @C library
 .global printf
