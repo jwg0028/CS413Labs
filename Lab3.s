@@ -58,6 +58,10 @@ inputLoop:
 
     @section for branching based on coin inputted
 
+    ldr r0, =fmtInt
+    ldr r6, [r1]
+    bl printf
+
     cmp r1, #1
     beq nickel
 
@@ -83,10 +87,6 @@ add r3, r4
 b inputLoop
 
 dime:
-
-ldr r0, =testMessage
-bl printf
-
 ldr r4, =dimeValue
 add r3, r4
 b inputLoop
