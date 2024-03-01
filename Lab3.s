@@ -92,6 +92,9 @@ inputLoop:
     cmp r1, #'B'
     beq billCase
 
+    cmp r1, #'I'
+    beq inventoryCheck
+
     ldr r0, =strInvalid
     bl printf
     
