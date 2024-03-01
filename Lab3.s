@@ -163,15 +163,27 @@ choiceLoop:
 cokeCase:
     cmp r6, #0
     b emptyCase
+
+    sub r5, r5, #55
+    sub r6, r6, #1
 spriteCase:
     cmp r7, #0
     b emptyCase
+
+    sub r5, r5, #55
+    sub r7, r7, #1
 pepperCase:
     cmp r8, #0
     b emptyCase
+
+    sub r5, r5, #55
+    sub r8, r8, #1
 zeroCase:
     cmp r9, #0
     b emptyCase
+
+    sub r5, r5, #55
+    sub r9, r9, #1
 emptyCase:
     ldr r0, =strEmpty
     bl printf
