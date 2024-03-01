@@ -42,7 +42,6 @@ main:
 
     bl takeInput
 
-    push{lr}
     bl choice
 
     b exit
@@ -117,7 +116,7 @@ breakLoop:
 
 
 choice:
-
+    push{r0, r1, r2, r3, r4, lr}
 
 choiceLoop:
     ldr r0, =strChoiceQuery
@@ -186,6 +185,8 @@ inventoryCheck:
     mov r3, r5 
     mov r4, r5 
     bl printf
+breakChoiceLoop:
+    pop {r0, r1, r2, r3, r4, pc}
 
 exit:
     mov r7, #0x01
