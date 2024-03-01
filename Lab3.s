@@ -32,15 +32,10 @@ main:
 
     bl takeInput
 
-    ldr r1, =inputChar
-    ldr r0, =fmtInt
-    ldr r2, [r1]
-    bl printf
-
     b exit
 
 takeInput:
-    push {r0, r1, r4, r8, lr}
+    push {r0, r1, r4, r5, r8, lr}
 
     ldr r3, =total
     ldr r5, =target
@@ -62,7 +57,7 @@ inputLoop:
 	
 
 breakLoop:
-    pop {r0, r1, r4, r8, pc}
+    pop {r0, r1, r4, r5, r8, pc}
 
 
 
