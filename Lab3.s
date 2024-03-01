@@ -92,7 +92,7 @@ quarterCase:
     b inputLoop
 
 billCase:
-    ldr r3, =billValuealue
+    ldr r3, =billValue
     add r3, r5
     pop {r3}
     b inputLoop
