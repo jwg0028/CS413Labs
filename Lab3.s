@@ -40,8 +40,7 @@ main:
 takeInput:
     push {r0, r1, r3, r4, lr}
 
-    ldr r6, =total
-    ldr r5, [r6]
+    ldr r5, =total
 
 
 inputLoop:
