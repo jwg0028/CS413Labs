@@ -74,7 +74,7 @@ strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dol
 fmtChar: .asciz "%c"
 
 .balign 4
-inputChar: .ascii 'a'
+inputChar: .ascii ""
 
 @C library
 .global printf
