@@ -57,13 +57,15 @@ inputLoop:
 
     ldr r1, =inputChar
 
-    ldr r0, =strTest
-    bl printf
+
 
     @section for branching based on coin inputted
 
     cmp r5, #55
     bge breakLoop
+
+    ldr r0, =strTest
+    bl printf
 
     cmp r1, #'n'
     beq nickelCase
