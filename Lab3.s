@@ -35,8 +35,13 @@ main:
     ldr r0, =testMessage
     bl printf
 
+    b exit
+
 takeInput:
-    push {r0, lr}
+    push {r0, r8, lr}
+
+    ldr r0, =strHelloMessage
+    bl printf
 
     ldr r0, =fmtInt
 	ldr r1, =inputNum
@@ -56,7 +61,10 @@ exit:
 .data
 
 .balign 4
-strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCost of Coke, Sprite, Dr. Pepper, and Coke Zero is 55 cents.\n\nEnter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
+strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCost of Coke, Sprite, Dr. Pepper, and Coke Zero is 55 cents.\n\n"
+
+.balign 4
+strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
 
 .balign 4
 testMessage: .asciz "test\n"
@@ -66,6 +74,9 @@ fmtInt: .asciz "%d"
 
 .balign 4
 inputNum: .word 0
+
+.balign 4
+total: .double 0
 
 @C library
 .global printf
