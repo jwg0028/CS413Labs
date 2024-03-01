@@ -58,6 +58,9 @@ inputLoop:
 
     @section for branching based on coin inputted
 
+    cmp r3, r5
+    bge breakLoop
+
     cmp r1, #1
     beq nickel
 
@@ -70,12 +73,8 @@ inputLoop:
     cmp r1, #4
     beq bill
 	
-	
 
-
-    cmp r3, r5
-    blt inputLoop
-
+breakLoop:
     pop {r0, r1, r4, r8, pc}
 
 nickel:
