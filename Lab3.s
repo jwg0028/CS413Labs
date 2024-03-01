@@ -80,25 +80,25 @@ inputLoop:
 nickelCase:
     ldr r3, =nickelValue
     ldr r4, [r3]  @ Load value of nickel
-    add r8, r8, r4  @ Add nickel value to total
+    add r5, r5, r4  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
 dimeCase:  
     ldr r3, =dimeValue
     ldr r4, [r3]  @ Load value of dime
-    add r8, r8, r4  @ Add dime value to total
+    add r5, r5, r4  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
 quarterCase:
     ldr r3, =quarterValue
     ldr r4, [r3]  @ Load value of quarter
-    add r8, r8, r4  @ Add quarter value to total
+    add r5, r5, r4  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
 billCase:
     ldr r3, =billValue
     ldr r4, [r3]  @ Load value of bill
-    add r8, r8, r4  @ Add bill value to total
+    add r5, r5, r4  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
 breakLoop:
