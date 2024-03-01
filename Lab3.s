@@ -47,9 +47,6 @@ masterLoop:
 
     bl choiceLoop
 
-input:
-    push{lr}
-
 inputLoop:
 
     ldr r0, =strInputLoop
@@ -74,7 +71,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     cmp r5, #55
-    bge breakLoop
+    bge choiceLoop
 
     cmp r1, #'N'
     beq nickelCase
@@ -113,9 +110,6 @@ billCase:
     add r5, r5, #100  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
-
-breakLoop:
-    pop {pc}
 
 
 
