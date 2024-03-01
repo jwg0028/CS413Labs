@@ -32,8 +32,9 @@ main:
 
     bl takeInput
 
-    ldr r0, =fmtInt
     ldr r1, =inputChar
+    ldr r0, =fmtInt
+    ldr r2, [r1]
     bl printf
 
     b exit
@@ -51,6 +52,8 @@ inputLoop:
 	bl scanf
 	
 	ldr r1, =inputChar
+
+    b inputLoop
 
     pop {r0, r1, r8, pc}
 
