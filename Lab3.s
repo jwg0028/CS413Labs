@@ -59,7 +59,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     ldr r0, =fmtInt
-    ldr r6, [r1], #4
+    mov r6, #14
     bl printf
 
     cmp r1, #1
