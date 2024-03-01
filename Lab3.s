@@ -40,7 +40,7 @@ main:
 takeInput:
     push {r0, r1, r3, r4, lr}
 
-    ldr r5, =total
+    mov r5, #0
 
 
 inputLoop:
@@ -63,16 +63,16 @@ inputLoop:
     cmp r5, #55
     bge breakLoop
 
-    cmp r1, #'n'
+    cmp r1, #'N'
     beq nickelCase
 
-    cmp r1, #'d'
+    cmp r1, #'D'
     beq dimeCase
 
-    cmp r1, #'q'
+    cmp r1, #'Q'
     beq quarterCase
 
-    cmp r1, #'b'
+    cmp r1, #'B'
     beq billCase
     
     b inputLoop
@@ -99,7 +99,7 @@ billCase:
 
 
 breakLoop:
-    pop {r0, r1, r3, r4, r5, r6, r8, r9, pc}
+    pop {r0, r1, pc}
 
 exit:
     mov r7, #0x01
