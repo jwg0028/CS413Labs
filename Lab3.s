@@ -166,24 +166,32 @@ cokeCase:
 
     sub r5, r5, #55
     sub r6, r6, #1
+
+    b choiceLoop
 spriteCase:
     cmp r7, #0
     b emptyCase
 
     sub r5, r5, #55
     sub r7, r7, #1
+
+    b choiceLoop
 pepperCase:
     cmp r8, #0
     b emptyCase
 
     sub r5, r5, #55
     sub r8, r8, #1
+
+    b choiceLoop
 zeroCase:
     cmp r9, #0
     b emptyCase
 
     sub r5, r5, #55
     sub r9, r9, #1
+
+    b choiceLoop
 emptyCase:
     ldr r0, =strEmpty
     bl printf
@@ -195,8 +203,10 @@ inventoryCheck:
     mov r1, r6 
     mov r2, r7
     mov r3, r8
-    mov r4, r9 
+    mov r4, r9
     bl printf
+
+    b choiceLoop
 breakChoiceLoop:
     pop {r0, r1, r2, r3, r4, pc}
 
