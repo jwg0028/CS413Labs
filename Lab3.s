@@ -46,7 +46,9 @@ takeInput:
 
 inputLoop:
 
-
+    ldr r0, =strYourTotal
+    ldr r5, =total
+    bl printf
 
 
     ldr r0, =fmtChar
@@ -58,7 +60,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     cmp r5, #55
-    beq breakLoop
+    bge breakLoop
 
     cmp r1, #'n'
     beq nickelCase
@@ -111,7 +113,7 @@ strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCos
 strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
 
 .balign 4
-strYourTotal: .asciz ""
+strYourTotal: .asciz "Your total is: %d"
 
 .balign 4
 fmtChar: .asciz "%c"
