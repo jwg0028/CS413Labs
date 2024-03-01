@@ -32,24 +32,27 @@ main:
 
     bl takeInput
 
-    ldr r0, =testMessage
+    ldr r0, =fmtInt
+    ldr r1, =inputChar
     bl printf
 
     b exit
 
 takeInput:
-    push {r0, r8, lr}
+    push {r0, r1, r8, lr}
 
-    ldr r0, =strHelloMessage
+inputLoop:
+
+    ldr r0, =strInputLoop
     bl printf
 
     ldr r0, =fmtInt
-	ldr r1, =inputNum
+	ldr r1, =inputChar
 	bl scanf
 	
-	ldr r1, =inputNum
+	ldr r1, =inputChar
 
-    pop {r0, pc}
+    pop {r0, r1, r8, pc}
 
 exit:
     mov r7, #0x01
@@ -73,7 +76,7 @@ testMessage: .asciz "test\n"
 fmtInt: .asciz "%d"
 
 .balign 4
-inputNum: .word 0
+inputChar: .word 0
 
 .balign 4
 total: .double 0
