@@ -192,10 +192,10 @@ emptyCase:
 
 inventoryCheck:
     ldr r0, =strInventory
-    mov r1, r5 
-    mov r2, r5 
-    mov r3, r5 
-    mov r4, r5 
+    mov r1, r6 
+    mov r2, r7
+    mov r3, r8
+    mov r4, r9 
     bl printf
 breakChoiceLoop:
     pop {r0, r1, r2, r3, r4, pc}
