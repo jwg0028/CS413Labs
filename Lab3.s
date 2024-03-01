@@ -1,18 +1,25 @@
 /*
 File: Lab_1.s
 Author: Jacob Wade Godwin
+Class: CS 413-02
+Term: Spring 2024
+Date: 3/1/2024
+
+Software Description: This program simulates the process of using a vending machine.
+You input how much money you wish to using coins, and then choose what drink you want.
+
+Errors: That I know of, just the fact that entering multiple letters will read as multiple inputs.
+However if they are incorrect the software will correctly react as such
 
 Run command lines
-1) as -o Lab1.o Lab1.s -g && gcc -o Lab1 Lab1.o -g
-2) ./Lab1
+1) as -o Lab3.o Lab3.s -g && gcc -o lab3 Lab3.o -g
+2) ./lab3
 
-(I tried to name it Lab_1.s but I don't think the raspberry pi likes underscores)
 
 Debug lines
-3) gdb ./Lab1
+3) gdb ./Lab3
 
-
-Registers used
+Registers used:
 r0: General
 r1: General
 r2: General
@@ -26,7 +33,9 @@ r9: number of coke zero
 */
 .global main
 
+@main function
 main:
+    @this section sets all the registers to their correct starting values
     mov r6, #1
     mov r7, #2
     mov r8, #2
@@ -36,13 +45,15 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
+    @jumpt to masterLoop
     bl masterLoop
 
 
 masterLoop:
-
+    @every return to the master loop will reset the coins back to 0
     mov r5, #0
 
+    @check for if the entire machine is empty
     add r10, r6, r7
     add r10, r10, r8
     add r10, r10, r9
@@ -50,12 +61,16 @@ masterLoop:
     cmp r10, #0
     beq exit
 
+    @start in the input loop
     bl inputLoop
 
+    @continue with choice loop. This line is actually not used
     bl choiceLoop
 
+@loop for taking input. This input section is for the coin input
 inputLoop:
 
+    @if r5 is greater than or equal to 55 cents, move to the choiceLoop
     cmp r5, #55
     bge choiceLoop
 
@@ -92,6 +107,7 @@ inputLoop:
     cmp r1, #'B'
     beq billCase
 
+    @inventory check
     cmp r1, #'I'
     beq inventoryCheck
 
@@ -122,7 +138,7 @@ billCase:
 
 
 
-
+@loop for choosing what drink you want. Only loops if the user either fails to input a correct answer, or the user choice in empty
 choiceLoop:
     ldr r0, =strChoiceQuery
     mov r1, r5
@@ -141,6 +157,8 @@ choiceLoop:
 
 
     @section for branching based on coin inputted
+    @after each break into a drink, if there is no more of that drink, it will return to the choiceLoop
+    @If a drink is chosen and there is one, one is deducted from the total for that drink and the user will return to the inputLoop
 
     cmp r1, #'C'
     beq cokeCase
@@ -154,12 +172,15 @@ choiceLoop:
     cmp r1, #'Z'
     beq zeroCase
 
+    @leaving just resets the program essentially, because it returns to the masterLoop
     cmp r1, #'X'
     beq leaveCase
 
+    @Check inventory
     cmp r1, #'I'
     beq inventoryCheck
 
+    @error message
     ldr r0, =strInvalid
     bl printf
     
@@ -226,6 +247,7 @@ emptyCase:
 
     b choiceLoop
 
+@inventoryCheck will check r5. If above 55, then the user came from choice loop. Less than 55, and they came from inputLoop
 inventoryCheck:
     ldr r0, =strInventory
     mov r1, r6 
@@ -239,7 +261,7 @@ inventoryCheck:
     bge choiceLoop
     blt inputLoop
 
-
+@exit
 exit:
     ldr r0, =strShutDown
     bl printf
