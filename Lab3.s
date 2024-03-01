@@ -138,7 +138,7 @@ choiceLoop:
     @section for branching based on coin inputted
 
     cmp r5, #55
-    ble breakChoiceLoop
+    blt breakChoiceLoop
 
     cmp r1, #'C'
     beq cokeCase
