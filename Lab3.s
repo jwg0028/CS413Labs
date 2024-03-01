@@ -90,6 +90,9 @@ dimeCase:
     add r5, r5, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
+    ldr r0, =strTest
+    bl printf
+
 quarterCase:
     add r5, r5, #25  @ Add quarter value to total
     b inputLoop  @ Continue input loop
