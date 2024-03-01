@@ -138,7 +138,7 @@ strYourTotal: .asciz "Your total is: %d\n"
 strTest: .asciz "Test"
 
 .balign 4
-fmtChar: .asciz "%c"
+fmtChar: .asciz " %c"
 
 .balign 4
 inputChar: .ascii "a"
