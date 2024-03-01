@@ -59,7 +59,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     cmp r3, r5
-    blt breakLoop
+    beq breakLoop
 
     cmp r1, #1
     beq nickel
