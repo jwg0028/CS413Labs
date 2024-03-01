@@ -38,7 +38,7 @@ main:
     b exit
 
 takeInput:
-    push {r0, r1, r3, r4, lr}
+    push {lr}
 
     mov r5, #0
 
@@ -64,7 +64,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     cmp r5, #55
-    beq breakLoop
+    bge breakLoop
 
     cmp r1, #'N'
     beq nickelCase
@@ -102,7 +102,7 @@ billCase:
 
 
 breakLoop:
-    pop {r0, r1, pc}
+    pop {pc}
 
 exit:
     mov r7, #0x01
