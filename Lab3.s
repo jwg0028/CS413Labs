@@ -46,7 +46,7 @@ takeInput:
 inputLoop:
 
     ldr r0, =strYourTotal
-    ldr r5, =total
+    ldr r6, [r5]  @ Load the value of total
     bl printf
 
 
@@ -83,32 +83,24 @@ inputLoop:
 
 @section for breaking off and adding
 nickelCase:
-    add r5, r5, #5  @ Add nickel value to total
+    add r6, r6, #5  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
-    ldr r0, =strTest
-    bl printf
 
 dimeCase:  
-    add r5, r5, #10  @ Add dime value to total
+    add r6, r6, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
-    ldr r0, =strTest
-    bl printf
 
 quarterCase:
-    add r5, r5, #25  @ Add quarter value to total
+    add r6, r6, #25  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
-    ldr r0, =strTest
-    bl printf
 
 billCase:
-    add r5, r5, #100  @ Add bill value to total
+    add r6, r6, #100  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
-    ldr r0, =strTest
-    bl printf
 
 breakLoop:
     pop {r0, r1, r3, r4, r5, r6, r8, r9, pc}
