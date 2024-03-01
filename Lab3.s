@@ -35,6 +35,8 @@ main:
 
     bl takeInput
 
+    bl choice
+
     b exit
 
 takeInput:
@@ -77,6 +79,9 @@ inputLoop:
 
     cmp r1, #'B'
     beq billCase
+
+    ldr r0, =strInvalid
+    bl printf
     
     b inputLoop
 
@@ -104,6 +109,10 @@ billCase:
 breakLoop:
     pop {pc}
 
+
+choice:
+
+
 exit:
     mov r7, #0x01
     mov r0, #0x00
@@ -118,6 +127,9 @@ strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCos
 
 .balign 4
 strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
+
+.balign 4
+strInvalid: .asciz "This is an invalid input, try again\n"
 
 .balign 4
 strYourTotal: .asciz "Your total is: %d\n"
