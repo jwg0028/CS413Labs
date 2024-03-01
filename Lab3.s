@@ -61,7 +61,7 @@ inputLoop:
     @section for branching based on coin inputted
 
     cmp r5, #55
-    beq breakLoop
+    bge breakLoop
 
     cmp r1, #'n'
     beq nickelCase
@@ -87,9 +87,6 @@ nickelCase:
 dimeCase:  
     add r5, r5, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
-
-    ldr r0, =strTest
-    bl printf
 
 quarterCase:
     add r5, r5, #25  @ Add quarter value to total
