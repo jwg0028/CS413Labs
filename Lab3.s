@@ -161,16 +161,16 @@ choiceLoop:
     b inputLoop
 
 cokeCase:
-    cmp r6, 0
+    cmp r6, #0
     b emptyCase
 spriteCase:
-    cmp r7, 0
+    cmp r7, #0
     b emptyCase
 pepperCase:
-    cmp r8, 0
+    cmp r8, #0
     b emptyCase
 zeroCase:
-    cmp r9, 0
+    cmp r9, #0
     b emptyCase
 emptyCase:
     ldr r0, =strEmpty
