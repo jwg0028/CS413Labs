@@ -45,9 +45,6 @@ takeInput:
     ldr r3, =total
     ldr r5, =target
 
-    ldr r0, =testMessage
-    bl printf
-
 inputLoop:
 
     ldr r0, =strInputLoop
