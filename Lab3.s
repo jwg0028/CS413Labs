@@ -30,6 +30,9 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
+    ldr r0, =strInputLoop
+    bl printf
+
     bl takeInput
 
     b exit
@@ -40,8 +43,7 @@ takeInput:
 inputLoop:
 
 
-    ldr r0, =strInputLoop
-    bl printf
+
 
     ldr r0, =fmtChar
 	ldr r1, =inputChar
