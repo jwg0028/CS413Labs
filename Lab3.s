@@ -126,7 +126,7 @@ strTest: .asciz "Test"
 fmtChar: .asciz "%c"
 
 .balign 4
-inpoutChar: .ascii 'a'
+inputChar: .ascii "a"
 
 .balign 4
 total: .word 0
