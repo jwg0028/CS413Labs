@@ -46,7 +46,7 @@ takeInput:
 inputLoop:
 
     ldr r0, =strYourTotal
-    ldr r6, [r5]  @ Load the value of total
+    ldr r1, [r5]  @ Load the value of total
     bl printf
 
 
