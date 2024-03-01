@@ -42,6 +42,8 @@ main:
 takeInput:
     push {r0, r1, r8, lr}
 
+    ldr r3, =total
+
 inputLoop:
 
     ldr r0, =strInputLoop
@@ -50,12 +52,42 @@ inputLoop:
     ldr r0, =fmtInt
 	ldr r1, =inputChar
 	bl scanf
-	
-	ldr r1, =inputChar
 
-    b inputLoop
+    ldr r1, =inputChar
+
+    @section for branching based on coin inputted
+
+    cmp r1, #1
+    beq nickel
+
+    cmp r1, #2
+    beq dime
+
+    cmp r1, #3
+    beq quarter
+
+    cmp r1, #4
+    beq bill
+	
+	
+
+
+    cmp r3, 0.55
+    blt inputLoop
 
     pop {r0, r1, r8, pc}
+
+nickel:
+add r3, #0.05
+
+dime:
+add r3, #0.10
+
+quarter:
+add r3, #0.25
+
+bill:
+add r3, #1
 
 exit:
     mov r7, #0x01
