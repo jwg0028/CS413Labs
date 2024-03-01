@@ -59,45 +59,12 @@ inputLoop:
     @section for branching based on coin inputted
 
     b inputLoop
-
-    @cmp r1, #'n'
-    @beq nickel
-
-    @cmp r1, #'d'
-    @beq dime
-
-    @cmp r1, #'q'
-    @beq quarter
-
-    @cmp r1, #'b'
-    @beq bill
-
-    @cmp r3, r5
-    @beq breakLoop
 	
 
 breakLoop:
     pop {r0, r1, r4, r8, pc}
 
-nickel:
-ldr r4, =nickelValue
-add r3, r4
-b inputLoop
 
-dime:
-ldr r4, =dimeValue
-add r3, r4
-b inputLoop
-
-quarter:
-ldr r4, =quarterValue
-add r3, r4
-b inputLoop
-
-bill:
-ldr r4, =billValue
-add r3, r4
-b inputLoop
 
 exit:
     mov r7, #0x01
