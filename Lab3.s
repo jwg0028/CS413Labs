@@ -43,6 +43,13 @@ masterLoop:
 
     mov r5, #0
 
+    add r10, r6, r7
+    add r10, r10, r8
+    add r10, r10, r9
+
+    cmp r10, #0
+    beq exit
+
     bl inputLoop
 
     bl choiceLoop
@@ -219,6 +226,9 @@ inventoryCheck:
 
 
 exit:
+    ldr r0, =strShutDown
+    bl printf
+
     mov r7, #0x01
     mov r0, #0x00
     svc 0
@@ -259,6 +269,9 @@ strInventory: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
 
 .balign 4
 strEmpty: .asciz "There is no more of this selection"
+
+.balign 4
+strShutDown: .asciz "There is no more inventory left. The machine will now shut down\n"
 
 .balign 4
 strTest: .asciz "Test"
