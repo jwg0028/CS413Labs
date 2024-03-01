@@ -61,8 +61,8 @@ inputLoop:
 
     @section for branching based on coin inputted
 
-    cmp r5, #55
-    bge breakLoop
+    cmp r6, #55
+    beq breakLoop
 
     ldr r0, =strTest
     bl printf
