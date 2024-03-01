@@ -17,15 +17,22 @@ r0: General
 r1: General
 r2: General
 r3: General
-r4: Counter for loops
-r7: Used in exit function
-r8: array1
-r9: array2
-r10: array3
+r4: General
+r5: user's total money
+r6: number of cokes
+r7: number of sprite
+r8: number of dr. pepper
+r9: number of coke zero
 */
 .global main
 
 main:
+    mov r5, #0
+    mov r6, #1
+    mov r7, #2
+    mov r8, #2
+    mov r9, #2
+
     @Welcomes the user on startup
     ldr r0, =strHelloMessage
     bl printf
@@ -41,8 +48,6 @@ main:
 
 takeInput:
     push {lr}
-
-    mov r5, #0
 
 
 inputLoop:
@@ -111,7 +116,75 @@ breakLoop:
 
 
 choice:
+    push{lr}
 
+choiceLoop:
+    ldr r0, =strChoiceQuery
+    mov r1, r5  @ Load the value of total
+    bl printf
+
+
+    ldr r0, =fmtChar
+	ldr r1, =inputChar
+	bl scanf
+
+
+    ldr r1, =inputChar
+
+    ldr r1, [r1]
+
+
+
+    @section for branching based on coin inputted
+
+    cmp r5, #55
+    ble breakChoiceLoop
+
+    cmp r1, #'C'
+    beq cokeCase
+
+    cmp r1, #'S'
+    beq spriteCase
+
+    cmp r1, #'P'
+    beq pepperCase
+
+    cmp r1, #'Z'
+    beq zeroCase
+
+    cmp r1, #'I'
+    beq inventoryCheck
+
+    ldr r0, =strInvalid
+    bl printf
+    
+    b inputLoop
+
+cokeCase:
+    cmp r6, 0
+    b emptyCase
+spriteCase:
+    cmp r7, 0
+    b emptyCase
+pepperCase:
+    cmp r8, 0
+    b emptyCase
+zeroCase:
+    cmp r9, 0
+    b emptyCase
+emptyCase:
+    ldr r0, =strEmpty
+    bl printf
+
+    b choiceLoop
+
+inventoryCheck:
+    ldr r0, =strInventory
+    mov r1, r5 
+    mov r2, r5 
+    mov r3, r5 
+    mov r4, r5 
+    bl printf
 
 exit:
     mov r7, #0x01
@@ -132,7 +205,16 @@ strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dol
 strInvalid: .asciz "This is an invalid input, try again\n"
 
 .balign 4
-strYourTotal: .asciz "Your total is: %d\n"
+strYourTotal: .asciz "Your total is: %d cents\n"
+
+.balign 4
+strChoiceQuery: .asciz "What would you like to get\nTotal Money: %d cents\n"
+
+.balign 4
+strInventory: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
+
+.balign 4
+strEmpty: .asciz "There is no more of this selection"
 
 .balign 4
 strTest: .asciz "Test"
