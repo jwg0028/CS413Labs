@@ -68,35 +68,36 @@ inputLoop:
     cmp r1, #'b'
     beq billCase
     
-breakLoop:
-    pop {r0, r1, r4, r5, r8, pc}
+    b inputLoop
 
 
 @section for breaking off and adding
 nickelCase:
     ldr r3, =nickelValue
-    add r3, r5
-    pop {r3}
-    b inputLoop
+    ldr r4, [r3]  @ Load value of nickel
+    add r5, r5, r4  @ Add nickel value to total
+    b inputLoop  @ Continue input loop
 
 dimeCase:  
     ldr r3, =dimeValue
-    add r3, r5
-    pop {r3}
-    b inputLoop
+    ldr r4, [r3]  @ Load value of dime
+    add r5, r5, r4  @ Add dime value to total
+    b inputLoop  @ Continue input loop
 
 quarterCase:
     ldr r3, =quarterValue
-    add r3, r5
-    pop {r3}
-    b inputLoop
+    ldr r4, [r3]  @ Load value of quarter
+    add r5, r5, r4  @ Add quarter value to total
+    b inputLoop  @ Continue input loop
 
 billCase:
     ldr r3, =billValue
-    add r3, r5
-    pop {r3}
-    b inputLoop
+    ldr r4, [r3]  @ Load value of bill
+    add r5, r5, r4  @ Add bill value to total
+    b inputLoop  @ Continue input loop
 
+breakLoop:
+    pop {r0, r1, r4, r5, r8, pc}
 
 exit:
     mov r7, #0x01
