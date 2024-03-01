@@ -116,7 +116,7 @@ breakLoop:
 
 
 choice:
-    push{r0, r1, r2, r3, r4, lr}
+    b choiceLoop
 
 choiceLoop:
     ldr r0, =strChoiceQuery
