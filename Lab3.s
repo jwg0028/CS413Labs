@@ -38,10 +38,12 @@ main:
     b exit
 
 takeInput:
-    push {r0, r1, r3, r4, r5, r8, lr}
+    push {r0, r1, r3, r4, r5, r6, r8, r9, lr}
 
-    ldr r3, =total
-    ldr r5, =target
+    ldr r8, =total
+    ldr r5, [r8]
+    ldr r9, =target
+    ldr r6, [r9]
 
 inputLoop:
 
@@ -55,6 +57,9 @@ inputLoop:
     ldr r1, =inputChar
 
     @section for branching based on coin inputted
+
+    cmp r8, r9
+    bge breakLoop
 
     cmp r1, #'n'
     beq nickelCase
@@ -75,29 +80,29 @@ inputLoop:
 nickelCase:
     ldr r3, =nickelValue
     ldr r4, [r3]  @ Load value of nickel
-    add r5, r5, r4  @ Add nickel value to total
+    add r8, r8, r4  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
 dimeCase:  
     ldr r3, =dimeValue
     ldr r4, [r3]  @ Load value of dime
-    add r5, r5, r4  @ Add dime value to total
+    add r8, r8, r4  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
 quarterCase:
     ldr r3, =quarterValue
     ldr r4, [r3]  @ Load value of quarter
-    add r5, r5, r4  @ Add quarter value to total
+    add r8, r8, r4  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
 billCase:
     ldr r3, =billValue
     ldr r4, [r3]  @ Load value of bill
-    add r5, r5, r4  @ Add bill value to total
+    add r8, r8, r4  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
 breakLoop:
-    pop {r0, r1, r4, r5, r8, pc}
+    pop {r0, r1, r3, r4, r5, r6, r8, r9, pc}
 
 exit:
     mov r7, #0x01
