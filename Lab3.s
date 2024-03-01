@@ -37,20 +37,23 @@ main:
     ldr r0, =strHelloMessage
     bl printf
 
-    ldr r0, =strInputLoop
-    bl printf
+    bl masterLoop
 
-    bl takeInput
 
-    bl choice
+masterLoop:
 
-    b exit
 
-takeInput:
-    push {lr}
+    bl inputLoop
 
+    bl choiceLoop
+
+input:
+    push{lr}
 
 inputLoop:
+
+    ldr r0, =strInputLoop
+    bl printf
 
     ldr r0, =strYourTotal
     mov r1, r5  @ Load the value of total
@@ -115,12 +118,10 @@ breakLoop:
     pop {pc}
 
 
-choice:
-    b choiceLoop
 
 choiceLoop:
     ldr r0, =strChoiceQuery
-    mov r1, r5  @ Load the value of total
+    mov r1, r5
     bl printf
 
 
@@ -136,9 +137,6 @@ choiceLoop:
 
 
     @section for branching based on coin inputted
-
-    cmp r5, #55
-    blt breakChoiceLoop
 
     cmp r1, #'C'
     beq cokeCase
@@ -167,7 +165,11 @@ cokeCase:
     sub r5, r5, #55
     sub r6, r6, #1
 
-    b choiceLoop
+    ldr r0, =strCoke
+    mov r1, r5
+    bl printf
+
+    b masterLoop
 spriteCase:
     cmp r7, #0
     beq emptyCase
@@ -175,7 +177,11 @@ spriteCase:
     sub r5, r5, #55
     sub r7, r7, #1
 
-    b choiceLoop
+    ldr r0, =strSprite
+    mov r1, r5
+    bl printf
+
+    b masterLoop
 pepperCase:
     cmp r8, #0
     beq emptyCase
@@ -183,7 +189,11 @@ pepperCase:
     sub r5, r5, #55
     sub r8, r8, #1
 
-    b choiceLoop
+    ldr r0, =strPepper
+    mov r1, r5
+    bl printf
+
+    b masterLoop
 zeroCase:
     cmp r9, #0
     beq emptyCase
@@ -191,7 +201,11 @@ zeroCase:
     sub r5, r5, #55
     sub r9, r9, #1
 
-    b choiceLoop
+    ldr r0, =strZero
+    mov r1, r5
+    bl printf
+
+    b masterLoop
 emptyCase:
     ldr r0, =strEmpty
     bl printf
@@ -207,8 +221,7 @@ inventoryCheck:
     bl printf
 
     b choiceLoop
-breakChoiceLoop:
-    pop {r0, r1, r2, r3, r4, pc}
+
 
 exit:
     mov r7, #0x01
@@ -233,6 +246,18 @@ strYourTotal: .asciz "Your total is: %d cents\n"
 
 .balign 4
 strChoiceQuery: .asciz "What would you like to get\nTotal Money: %d cents\n"
+
+.balign 4
+strCoke: .asciz "Coke Dispensed\nReturned %d cents\n"
+
+.balign 4
+strSprite: .asciz "Sprite Dispensed\nReturned %d cents\n"
+
+.balign 4
+strPepper: .asciz "Dr. Pepper Dispensed\nReturned %d cents\n"
+
+.balign 4
+strZero: .asciz "Coke Zero Dispensed\nReturned %d cents\n"
 
 .balign 4
 strInventory: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
