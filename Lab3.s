@@ -60,7 +60,7 @@ inputLoop:
 
     @section for branching based on coin inputted
 
-    cmp r6, #55
+    cmp r5, #55
     beq breakLoop
 
     ldr r0, =strTest
@@ -83,22 +83,22 @@ inputLoop:
 
 @section for breaking off and adding
 nickelCase:
-    add r6, r6, #5  @ Add nickel value to total
+    add r5, r5, #5  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
 
 dimeCase:  
-    add r6, r6, #10  @ Add dime value to total
+    add r5, r5, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
 
 quarterCase:
-    add r6, r6, #25  @ Add quarter value to total
+    add r5, r5, #25  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
 
 billCase:
-    add r6, r6, #100  @ Add bill value to total
+    add r5, r5, #100  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
 
