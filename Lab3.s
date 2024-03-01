@@ -49,6 +49,9 @@ masterLoop:
 
 inputLoop:
 
+    cmp r5, #55
+    bge choiceLoop
+
     ldr r0, =strInputLoop
     bl printf
 
@@ -69,9 +72,6 @@ inputLoop:
 
 
     @section for branching based on coin inputted
-
-    cmp r5, #55
-    bge choiceLoop
 
     cmp r1, #'N'
     beq nickelCase
