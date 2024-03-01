@@ -54,7 +54,10 @@ inputLoop:
 	ldr r1, =inputChar
 	bl scanf
 
+
     ldr r1, =inputChar
+
+    ldr r1, [r1]
 
 
 
