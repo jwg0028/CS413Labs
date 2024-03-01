@@ -86,6 +86,9 @@ nickelCase:
     add r5, r5, #5  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
+    ldr r0, =strTest
+    bl printf
+
 dimeCase:  
     add r5, r5, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
@@ -97,9 +100,15 @@ quarterCase:
     add r5, r5, #25  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
+    ldr r0, =strTest
+    bl printf
+
 billCase:
     add r5, r5, #100  @ Add bill value to total
     b inputLoop  @ Continue input loop
+
+    ldr r0, =strTest
+    bl printf
 
 breakLoop:
     pop {r0, r1, r3, r4, r5, r6, r8, r9, pc}
