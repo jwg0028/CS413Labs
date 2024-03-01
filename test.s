@@ -1,51 +1,107 @@
+/*
+File: Lab_1.s
+Author: Jacob Wade Godwin
+
+Run command lines
+1) as -o Lab1.o Lab1.s -g && gcc -o Lab1 Lab1.o -g
+2) ./Lab1
+
+(I tried to name it Lab_1.s but I don't think the raspberry pi likes underscores)
+
+Debug lines
+3) gdb ./Lab1
 
 
-
+Registers used
+r0: General
+r1: General
+r2: General
+r3: General
+r4: Counter for loops
+r7: Used in exit function
+r8: array1
+r9: array2
+r10: array3
+*/
 .global main
 
 main:
-    mov r0, #0              @ File descriptor (0 for stdin)
-    ldr r1, =buffer         @ Buffer to store user input
-    mov r2, #32             @ Maximum number of bytes to read
-    mov r7, #3              @ syscall number for read
-    swi 0                   @ Invoke syscall
+    @Welcomes the user on startup
+    ldr r0, =strHelloMessage
+    bl printf
 
-    @ Now you have the user input in the buffer
-    @ You can convert it to a 32-bit hexadecimal integer if needed
+    bl takeInput
 
-    @ Example: Print the input
-    ldr r0, =buffer         @ Load address of buffer
-    bl puts                 @ Call puts to print the string
-    b end
+    b exit
 
-puts:
-    push {lr}               @ Save link register
-loop:
-    ldrb r1, [r0], #1       @ Load byte from memory and increment address
-    cmp r1, #0              @ Check if byte is null terminator
-    beq done                @ If null terminator, exit loop
-    mov r0, r1              @ Move byte to r0 for putchar
-    bl putchar              @ Call putchar to print the character
-    b loop
-done:
-    pop {lr}                @ Restore link register
-    bx lr                   @ Return from puts
+takeInput:
+    push {r0, r1, r4, r5, r8, lr}
 
-putchar:
-    mov r7, #4              @ syscall number for write
-    mov r0, #1              @ File descriptor (1 for stdout)
-    svc 0                   @ Invoke syscall
-    bx lr
+    ldr r3, =total
+    ldr r5, =target
 
-end:
-    mov r7, #1              @ syscall number for exit
-    mov r0, #0              @ Return 0 status
-    svc 0                   @ Invoke syscall
+inputLoop:
 
+    ldr r0, =strInputLoop
+    bl printf
+
+    ldr r0, =fmtChar
+	ldr r1, =inputChar
+	bl scanf
+
+    ldr r1, =inputChar
+
+    @section for branching based on coin inputted
+
+    b inputLoop
+	
+
+breakLoop:
+    pop {r0, r1, r4, r5, r8, pc}
+
+
+
+exit:
+    mov r7, #0x01
+    mov r0, #0x00
+    svc 0
+
+
+@variable section
 .data
-buffer:     .space  32      @ Buffer to store user input
-fmt:        .asciz  "%s"    @ Format string for scanf
-newline:    .asciz  "\n"    @ Newline character for printing
+
+.balign 4
+strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCost of Coke, Sprite, Dr. Pepper, and Coke Zero is 55 cents.\n\n"
+
+.balign 4
+strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
+
+.balign 4
+testMessage: .asciz "test\n"
+
+.balign 4
+fmtChar: .asciz "%c"
+
+.balign 4
+inputChar: .ascii 'a'
+
+.balign 4
+nickelValue: .double 0.05
+
+.balign 4
+dimeValue: .double 0.10
+
+.balign 4
+quarterValue: .double 0.25
+
+.balign 4
+billValue: .double 1
+
+.balign 4
+target: .double 0.55
+
+.balign 4
+total: .double 0
 
 @C library
 .global printf

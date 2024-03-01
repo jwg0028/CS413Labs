@@ -37,10 +37,8 @@ main:
 takeInput:
     push {r0, r1, r4, r5, r8, lr}
 
-    ldr r3, =total
-    ldr r5, =target
-
 inputLoop:
+
 
     ldr r0, =strInputLoop
     bl printf
@@ -54,12 +52,8 @@ inputLoop:
     @section for branching based on coin inputted
 
     b inputLoop
-	
 
-breakLoop:
     pop {r0, r1, r4, r5, r8, pc}
-
-
 
 exit:
     mov r7, #0x01
@@ -77,31 +71,10 @@ strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCos
 strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
 
 .balign 4
-testMessage: .asciz "test\n"
-
-.balign 4
 fmtChar: .asciz "%c"
 
 .balign 4
 inputChar: .ascii 'a'
-
-.balign 4
-nickelValue: .double 0.05
-
-.balign 4
-dimeValue: .double 0.10
-
-.balign 4
-quarterValue: .double 0.25
-
-.balign 4
-billValue: .double 1
-
-.balign 4
-target: .double 0.55
-
-.balign 4
-total: .double 0
 
 @C library
 .global printf
