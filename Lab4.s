@@ -82,7 +82,7 @@ inputLoop:
     bl printf
 
     ldr r0, =strYourTotal
-    movs r1, [r3]  @ Load the value of total
+    movs r1, r3  @ Load the value of total
     bl printf
 
 
