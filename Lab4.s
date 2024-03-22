@@ -1,9 +1,9 @@
 /*
-File: Lab_1.s
+File: Lab4.s
 Author: Jacob Wade Godwin
 Class: CS 413-02
 Term: Spring 2024
-Date: 3/1/2024
+Date: 3/22/2024
 
 Software Description: This program simulates the process of using a vending machine.
 You input how much money you wish to using coins, and then choose what drink you want.
@@ -12,12 +12,12 @@ Errors: That I know of, just the fact that entering multiple letters will read a
 However if they are incorrect the software will correctly react as such
 
 Run command lines
-1) as -o Lab3.o Lab3.s -g && gcc -o lab3 Lab3.o -g
+1) as -o Lab4.o Lab4.s -g && gcc -o lab3 Lab4.o -g
 2) ./lab3
 
 
 Debug lines
-3) gdb ./Lab3
+3) gdb ./Lab4
 
 Registers used:
 r0: General
