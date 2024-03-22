@@ -24,12 +24,11 @@ r0: General
 r1: General
 r2: General
 r3: General
-r4: General
-r5: user's total money
-r6: number of cokes
-r7: number of sprite
-r8: number of dr. pepper
-r9: number of coke zero
+r4: User total money
+r5: number of cokes
+r6: number of sprite
+r7: number of dr. pepper
+r8: number of coke zero 
 */
 .global main
 
@@ -42,10 +41,10 @@ main:
 @start function
 thumb:
     @this section sets all the registers to their correct starting values
-    movs r6, #1
+    movs r5, #1
+    movs r6, #2
     movs r7, #2
     movs r8, #2
-    movs r9, #2
 
     @Welcomes the user on startup
     ldr r0, =strHelloMessage
@@ -57,12 +56,12 @@ thumb:
 
 masterLoop:
     @every return to the master loop will reset the coins back to 0
-    movs r5, #0
+    movs r4, #0
 
     @check for if the entire machine is empty
-    add r10, r6, r7
+    add r10, r5, r6
+    add r10, r10, r7
     add r10, r10, r8
-    add r10, r10, r9
 
     cmp r10, #0
     it eq
@@ -77,8 +76,8 @@ masterLoop:
 @loop for taking input. This input section is for the coin input
 inputLoop:
 
-    @if r5 is greater than or equal to 55 cents, move to the choiceLoop
-    cmp r5, #55
+    @if r4 is greater than or equal to 55 cents, move to the choiceLoop
+    cmp r4, #55
     it ge
     bge choiceLoop
 
@@ -86,7 +85,7 @@ inputLoop:
     bl printf
 
     ldr r0, =strYourTotal
-    movs r1, r5  @ Load the value of total
+    movs r1, r4  @ Load the value of total
     bl printf
 
 
@@ -132,21 +131,21 @@ inputLoop:
 
 @section for breaking off and adding
 nickelCase:
-    add r5, r5, #5  @ Add nickel value to total
+    add r4, r4, #5  @ Add nickel value to total
     b inputLoop  @ Continue input loop
 
 
 dimeCase:  
-    add r5, r5, #10  @ Add dime value to total
+    add r4, r4, #10  @ Add dime value to total
     b inputLoop  @ Continue input loop
 
 quarterCase:
-    add r5, r5, #25  @ Add quarter value to total
+    add r4, r4, #25  @ Add quarter value to total
     b inputLoop  @ Continue input loop
 
 
 billCase:
-    add r5, r5, #100  @ Add bill value to total
+    add r4, r4, #100  @ Add bill value to total
     b inputLoop  @ Continue input loop
 
 
@@ -154,7 +153,7 @@ billCase:
 @loop for choosing what drink you want. Only loops if the user either fails to input a correct answer, or the user choice in empty
 choiceLoop:
     ldr r0, =strChoiceQuery
-    movs r1, r5
+    movs r1, r4
     bl printf
 
 
@@ -206,60 +205,60 @@ choiceLoop:
     b inputLoop
 
 cokeCase:
-    cmp r6, #0
+    cmp r5, #0
     it eq
     beq emptyCase
 
-    sub r5, r5, #55
-    sub r6, r6, #1
+    sub r4, r4, #55
+    sub r5, r5, #1
 
     ldr r0, =strCoke
-    movs r1, r5
+    movs r1, r4
     bl printf
 
     b masterLoop
 spriteCase:
-    cmp r7, #0
+    cmp r6, #0
     it eq
     beq emptyCase
 
-    sub r5, r5, #55
-    sub r7, r7, #1
+    sub r4, r4, #55
+    sub r6, r6, #1
 
     ldr r0, =strSprite
-    movs r1, r5
+    movs r1, r4
     bl printf
 
     b masterLoop
 pepperCase:
-    cmp r8, #0
+    cmp r7, #0
     it eq
     beq emptyCase
 
-    sub r5, r5, #55
-    sub r8, r8, #1
+    sub r4, r4, #55
+    sub r7, r7, #1
 
     ldr r0, =strPepper
-    movs r1, r5
+    movs r1, r4
     bl printf
 
     b masterLoop
 zeroCase:
-    cmp r9, #0
+    cmp r8, #0
     it eq
     beq emptyCase
 
-    sub r5, r5, #55
-    sub r9, r9, #1
+    sub r4, r4, #55
+    sub r8, r8, #1
 
     ldr r0, =strZero
-    movs r1, r5
+    movs r1, r4
     bl printf
 
     b masterLoop
 leaveCase:
     ldr r0, =strLeave
-    movs r1, r5
+    movs r1, r4
     bl printf
 
     b masterLoop
@@ -270,17 +269,17 @@ emptyCase:
 
     b choiceLoop
 
-@inventoryCheck will check r5. If above 55, then the user came from choice loop. Less than 55, and they came from inputLoop
+@inventoryCheck will check r4. If above 55, then the user came from choice loop. Less than 55, and they came from inputLoop
 inventoryCheck:
     ldr r0, =strInventory
-    movs r1, r6 
-    movs r2, r7
-    movs r3, r8
-    push {r9}
+    movs r1, r5
+    movs r2, r6
+    movs r3, r7
+    push {r8}
     bl printf
-    pop {r9}
+    pop {r8}
 
-    cmp r5, #55
+    cmp r4, #55
     it ge
     bge choiceLoop
     blt inputLoop
