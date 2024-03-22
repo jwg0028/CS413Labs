@@ -40,7 +40,7 @@ main:
     .syntax unified
 
 @start function
-start:
+thumb:
     @this section sets all the registers to their correct starting values
     mov r6, #1
     mov r7, #2
