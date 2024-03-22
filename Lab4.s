@@ -62,6 +62,9 @@ masterLoop:
     add r10, r10, r6
     add r10, r10, r7
 
+    ldr r0, =strHelloMessage
+    bl printf
+
     cmp r10, #0
     it eq
     beq exit
@@ -299,6 +302,9 @@ exit:
 
 .balign 4
 strHelloMessage: .asciz "Welcome to Mr. Zippy's soft drink vending machine.\nCost of Coke, Sprite, Dr. Pepper, and Coke Zero is 55 cents.\n\n"
+
+.balign 4
+strTest: .asciz "Test"
 
 .balign 4
 strInputLoop: .asciz "Enter money nickel (N), dime (D), quarter (Q), and one dollar bill (B).\n"
