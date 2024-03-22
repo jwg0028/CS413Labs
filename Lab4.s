@@ -8,12 +8,18 @@ Date: 3/22/2024
 Software Description: This program simulates the process of using a vending machine.
 You input how much money you wish to using coins, and then choose what drink you want.
 
-Errors: That I know of, just the fact that entering multiple letters will read as multiple inputs.
-However if they are incorrect the software will correctly react as such
+Errors: The program unfortunately does not run. I was getting the error:
+"Program recieved signal SIGILL, Illegal instruction.
+0x00010f54 in ?? ()"
+I believe it was in my input function, however, I cannot find it. It will run, but
+it will only include the welcome message, then I get an "Illegal instruction" error.
+My main issue with thumb is that I kind of get the general idea of some things, but I'm
+still bad at managing memory properly, so that may be the root of the problem. I'm sorry, but
+just can't figure it out.
 
-Run command lines
-1) as -o Lab4.o Lab4.s -g && gcc -o lab3 Lab4.o -g
-2) ./lab3
+Run command lines:
+1) as -o Lab4.o Lab4.s -g && gcc -o lab4 Lab4.o -g
+2) ./lab4
 
 
 Debug lines
