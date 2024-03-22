@@ -270,12 +270,16 @@ emptyCase:
 
 @inventoryCheck will check r3. If above 55, then the user came from choice loop. Less than 55, and they came from inputLoop
 inventoryCheck:
-    ldr r0, =strInventory
+    ldr r0, =strInventory1
     movs r1, r4
     movs r2, r5
-    push {r6, r7}
     bl printf
-    pop {r6, r7}
+
+    ldr r0, =strInventory2
+    movs r1, r6
+    movs r2, r7
+    bl printf
+
 
     cmp r3, #55
     it ge
@@ -326,7 +330,10 @@ strZero: .asciz "Coke Zero Dispensed\nReturned %d cents\n"
 strLeave: .asciz "Nothing was chosen\nReturned %d cents\n"
 
 .balign 4
-strInventory: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
+strInventory1: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
+
+.balign 4
+strInventory2: .asciz "Coke: %d\nSprite: %d\nPepsi: %d\nCoke Zero: %d\n"
 
 .balign 4
 strEmpty: .asciz "There is no more of this selection"
