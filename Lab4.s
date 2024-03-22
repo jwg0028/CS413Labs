@@ -69,8 +69,6 @@ masterLoop:
     @start in the input loop
     bl inputLoop
 
-    @continue with choice loop. This line is actually not used
-    bl choiceLoop
 
 @loop for taking input. This input section is for the coin input
 inputLoop:
@@ -84,7 +82,7 @@ inputLoop:
     bl printf
 
     ldr r0, =strYourTotal
-    movs r1, r3  @ Load the value of total
+    movs r1, [r3]  @ Load the value of total
     bl printf
 
 
