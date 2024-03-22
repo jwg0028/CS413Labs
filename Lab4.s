@@ -42,10 +42,10 @@ main:
 @start function
 thumb:
     @this section sets all the registers to their correct starting values
-    mov r6, #1
-    mov r7, #2
-    mov r8, #2
-    mov r9, #2
+    movs r6, #1
+    movs r7, #2
+    movs r8, #2
+    movs r9, #2
 
     @Welcomes the user on startup
     ldr r0, =strHelloMessage
@@ -57,7 +57,7 @@ thumb:
 
 masterLoop:
     @every return to the master loop will reset the coins back to 0
-    mov r5, #0
+    movs r5, #0
 
     @check for if the entire machine is empty
     add r10, r6, r7
@@ -86,7 +86,7 @@ inputLoop:
     bl printf
 
     ldr r0, =strYourTotal
-    mov r1, r5  @ Load the value of total
+    movs r1, r5  @ Load the value of total
     bl printf
 
 
@@ -154,7 +154,7 @@ billCase:
 @loop for choosing what drink you want. Only loops if the user either fails to input a correct answer, or the user choice in empty
 choiceLoop:
     ldr r0, =strChoiceQuery
-    mov r1, r5
+    movs r1, r5
     bl printf
 
 
@@ -214,7 +214,7 @@ cokeCase:
     sub r6, r6, #1
 
     ldr r0, =strCoke
-    mov r1, r5
+    movs r1, r5
     bl printf
 
     b masterLoop
@@ -227,7 +227,7 @@ spriteCase:
     sub r7, r7, #1
 
     ldr r0, =strSprite
-    mov r1, r5
+    movs r1, r5
     bl printf
 
     b masterLoop
@@ -240,7 +240,7 @@ pepperCase:
     sub r8, r8, #1
 
     ldr r0, =strPepper
-    mov r1, r5
+    movs r1, r5
     bl printf
 
     b masterLoop
@@ -253,13 +253,13 @@ zeroCase:
     sub r9, r9, #1
 
     ldr r0, =strZero
-    mov r1, r5
+    movs r1, r5
     bl printf
 
     b masterLoop
 leaveCase:
     ldr r0, =strLeave
-    mov r1, r5
+    movs r1, r5
     bl printf
 
     b masterLoop
@@ -273,9 +273,9 @@ emptyCase:
 @inventoryCheck will check r5. If above 55, then the user came from choice loop. Less than 55, and they came from inputLoop
 inventoryCheck:
     ldr r0, =strInventory
-    mov r1, r6 
-    mov r2, r7
-    mov r3, r8
+    movs r1, r6 
+    movs r2, r7
+    movs r3, r8
     push {r9}
     bl printf
     pop {r9}
@@ -290,8 +290,8 @@ exit:
     ldr r0, =strShutDown
     bl printf
 
-    mov r7, #0x01
-    mov r0, #0x00
+    movs r7, #0x01
+    movs r0, #0x00
     svc 0
 
 
