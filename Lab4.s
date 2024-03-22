@@ -62,7 +62,7 @@ masterLoop:
     add r10, r10, r6
     add r10, r10, r7
 
-    ldr r0, =strHelloMessage
+    ldr r0, =strTest
     bl printf
 
     cmp r10, #0
@@ -344,9 +344,6 @@ strEmpty: .asciz "There is no more of this selection"
 
 .balign 4
 strShutDown: .asciz "There is no more inventory left. The machine will now shut down\n"
-
-.balign 4
-strTest: .asciz "Test"
 
 .balign 4
 fmtChar: .asciz " %c"
