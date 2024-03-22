@@ -1,4 +1,3 @@
-lab4.txt
 /*
 File: Lab_1.s
 Author: Jacob Wade Godwin
