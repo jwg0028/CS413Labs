@@ -1,3 +1,21 @@
+/*
+File: lab5.cpp
+Author: Jacob Wade Godwin
+Class: CS 413-02
+Term: Spring 2024
+Date: 4/5/2024
+
+Software Description: This program simulates the process of using a vending machine.
+You input how much money you wish to using coins, and then choose what drink you want.
+
+Run command lines:
+1) as -o Lab4.o Lab4.s -g && gcc -o lab4 Lab4.o -g
+2) ./lab4
+
+
+Debug lines
+3) gdb ./Lab4
+*/
 #include <iostream>
 #include <fstream>
 
